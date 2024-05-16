@@ -1,11 +1,9 @@
 from Product import Product
+from Catalog_Component import Composite
 
-class Product_Catalog:
-    # def __init__(self, products: list[Product]):
-    #     self.__products_list = products
-        
-    # def get_products_list(self):
-    #     return self.__products_list
+class Product_Catalog(Composite):
+    def get_children_list(self):
+        return self.children
     
     # def set_products_list(self, new_product_list: list[Product]):
     #     self.__products_list = new_product_list
@@ -19,6 +17,11 @@ class Product_Catalog:
     #     else:
     #         print('We dont have this product in catalog')
         
-    # def sort_by_price(self):
-    #     self.__products_list = sorted(self.__products_list, 
-    #                              key = lambda x: x.price)
+    def sort_by_price(self):
+        for child in self.children:
+            if child.product != None:
+                self.children = sorted(self.children,
+                               key = lambda x: x.product.price)
+            else:
+                child.sort_by_price()
+
