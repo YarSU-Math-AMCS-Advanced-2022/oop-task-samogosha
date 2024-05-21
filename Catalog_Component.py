@@ -30,10 +30,6 @@ class Composite(Catalog_Component):
 
     def display(self, cnt_space):
         print('-' * cnt_space, self.name, sep='')
-        # if self.product == None:
-        #     for child in self.children:
-        #         print("- ", end="")
-        #         child.display()
         for child in self.children:
             if child.product == None:
                 child.display(cnt_space + 1)

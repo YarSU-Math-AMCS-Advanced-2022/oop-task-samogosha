@@ -55,7 +55,6 @@ def main():
 
     root.display(0)
 
-    
 
 if __name__ == '__main__':
     main()
