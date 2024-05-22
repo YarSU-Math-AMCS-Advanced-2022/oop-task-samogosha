@@ -32,4 +32,10 @@ class Store(Observable):
             if self.products_list[ind].stock_quantity <= 0:
                 self.products_list[ind].stock_quantity = 0
                 self.update_product_quantity(old_product, product)
-        
+
+    def find_by_name(self, product_name: str):
+        for product in self.products_list:
+            if product.product_name == product_name:
+                return product
+        return None
+            
