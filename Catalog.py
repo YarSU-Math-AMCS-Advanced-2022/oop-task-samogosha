@@ -12,4 +12,16 @@ class Product_Catalog(Composite):
                                key = lambda x: x.product.price)
             else:
                 child.sort_by_price()
+    
+    def find_product(self, product):
+        if self.product != None:
+            return
+        for prod in self.children:
+            if prod.product != None:
+                if product.is_similar(prod.product):
+                    return prod.product
+                return
+            else:
+                return prod.find_product(product)
+                
 

@@ -1,8 +1,10 @@
 from Product import Product
 from Catalog import Product_Catalog 
 from Shop import Product_Shop
+from Store import Store
 
 def main():
+    '''
     tshirt_anapa = Product('Майка_Анапа_2007', 
                            3,
                            100,
@@ -54,7 +56,21 @@ def main():
     branch_accessories.sort_by_price()
 
     root.display(0)
+    '''
+    root = Product_Catalog('Root')
 
+    list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
+    store = Store(list_of_products)
+
+    leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
+    root.add(leaf_tshirt_anapa)
+
+    shop = Product_Shop(root)
+    store.register(shop)
+
+    store.change_product(list_of_products[0], -2)
+    print(leaf_tshirt_anapa.product.stock_quantity)
+    
 
 if __name__ == '__main__':
     main()

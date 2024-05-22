@@ -13,8 +13,7 @@ class Composite(Catalog_Component):
 
     def __init__(self, name, product = None):
         if product != None:
-            super().__init__(name, product = None)
-            self.product = product
+            super().__init__(name, product)
         else:
             super().__init__(name)
             self.children = []
