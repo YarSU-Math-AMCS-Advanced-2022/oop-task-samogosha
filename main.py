@@ -25,6 +25,7 @@ def main():
     Sp = Product_Shop(Cat)
     Sp.sort_by_price()
     Sp.show_catalog()
+
     '''
     Cat
         
