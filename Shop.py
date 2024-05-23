@@ -50,5 +50,5 @@ class Product_Shop(Observer):
     def add_product_to_catalog(self, category_name: str, product: Product):
         new_product = Product_Catalog(product.product_name, product)
         self.find_in_catalog(category_name).add(new_product)
-        
+        self.add_to_hash(product)  
     
