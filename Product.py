@@ -41,3 +41,23 @@ class Product:
               + f"Product_photo = {self.photo}" + "\n"
               + f"Product_stock_quantity = {self.stock_quantity}" + "\n"
               + f"Product_description = {self.description}")
+        
+    def copy(self, product):
+        self.product_name = product.product_name
+        self.type = product.type
+        self.price = product.price
+        self.photo = product.photo
+        self.stock_quantity = product.stock_quantity
+        self.description = product.description
+    
+    def is_similar(self, product):
+        if (self.product_name == product.product_name and
+            self.type == product.type and
+            self.price == product.price and
+            self.photo == product.photo and
+            self.stock_quantity == product.stock_quantity and
+            self.description == product.description):
+            return True
+        else:
+            return False
+        

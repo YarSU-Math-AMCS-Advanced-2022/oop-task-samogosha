@@ -1,43 +1,93 @@
 from Product import Product
 from Catalog import Product_Catalog 
 from Shop import Product_Shop
+from Store import Store
+from Cart import Cart
+from Order import Order
 
 def main():
-    # Магазин товаров
-    # Shop = Shop()
-    lst = [Product('Футблока_Чёрная', 
-                    1, 500, '', 
-                    2, 
-                    'Классная брат, ещё не помялась'),
-            Product('Майка_Анапа_2007',
-                    3,
-                    0,
-                    '',
-                    1,
-                    'Та самая))'),
-            Product('Цепочка_Вин_Дозатор',
-                    2,
-                    1e8, 
-                    '',
-                    1,
-                    'Оригинал, отвечаю, лично из рук Вин Дизеля брал))')]
-    Cat = Product_Catalog(lst)
-    Sp = Product_Shop(Cat)
-    Sp.sort_by_price()
-    Sp.show_catalog()
 
-    '''
-    Cat
-        
-    print()
-    print('Стало после сортировки')
+    tshirt_anapa = Product('Майка_Анапа_2007', 
+                           3,
+                           100,
+                           '',
+                           1,
+                           'Та самая))')
     
-    Cat.sort_by_price()
-    new_x = Cat.get_products_list()
-    for i in new_x:
-        i.Product_print()
-        print()
-        '''
+    accessories_chain = Product('Цепочка_Вин_Дозатор',
+                                2,
+                                1e8, 
+                                '',
+                                2,
+                                'Оригинал, отвечаю, лично из рук Вин Дизеля брал))')
+    
+    accessories_chain2 = Product('Цепочка_Вин_Дозатор_2',
+                                2,
+                                10, 
+                                '',
+                                1,
+                                'НеОригинал, отвечаю, лично из рук Вин Дизеля не брал))')
+
+    tshirt_blkc = Product('Футблока_Чёрная', 
+                          1,
+                          50,
+                          '', 
+                          2, 
+                          'Классная брат, ещё не помялась')
+
+    root = Product_Catalog('Root')
+
+    branch_tshirts = Product_Catalog('TShirts')
+    branch_accessories = Product_Catalog('Accessories')
+
+    leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
+    leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
+    leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
+    leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
+
+    branch_tshirts.add(leaf_tshirt_anapa)
+    branch_tshirts.add(leaf_tshirt_blck)
+    branch_accessories.add(leaf_accessories_chain)
+    branch_accessories.add(leaf_accessories_chain2)
+
+    root.add(branch_tshirts)
+    root.add(branch_accessories)
+
+    root.display(0)
+
+    branch_accessories.sort_by_price()
+
+    root.display(0)
+    
+    # root = Product_Catalog('Root')
+
+    # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
+    # store = Store(list_of_products)
+
+    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
+    # root.add(leaf_tshirt_anapa)
+
+    # shop = Product_Shop(root)
+    # store.register(shop)
+
+    # store.change_product(list_of_products[0], -2)
+    # print(leaf_tshirt_anapa.product.stock_quantity)
+
+    store = Store(list())
+    store.add_product(tshirt_anapa)
+    store.add_product(accessories_chain)
+    store.add_product(accessories_chain2)
+    store.add_product(tshirt_blkc)
+
+    cart = Cart()
+    cart.add_to_cart('Майка_Анапа_2007', 1)
+    cart.add_to_cart('Цепочка_Вин_Дозатор', 2)
+    cart.add_to_cart('Цепочка_Вин_Дозатор_2', 10)
+
+    order = Order('Заказ1', 5, 'Крамсякин', 'Br', cart, store)
+    order.complete_order()
+
+    print(order.user_cart.cart_dictionary)    
 
 if __name__ == '__main__':
     main()
