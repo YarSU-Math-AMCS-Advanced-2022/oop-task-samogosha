@@ -20,4 +20,3 @@ class Observable(metaclass=ABCMeta):
 
     def notify_observers(self, message: str) -> None:
         pass
-

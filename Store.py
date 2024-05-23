@@ -4,7 +4,7 @@ from Product import Product
 
 class Store(Observable):
 
-    def __init__(self, products_list:list[Product]):
+    def __init__(self, products_list: list[Product]):
         self.observers = []
         self.products_list = products_list 
 

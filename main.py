@@ -2,9 +2,11 @@ from Product import Product
 from Catalog import Product_Catalog 
 from Shop import Product_Shop
 from Store import Store
+from Cart import Cart
+from Order import Order
 
 def main():
-    '''
+
     tshirt_anapa = Product('Майка_Анапа_2007', 
                            3,
                            100,
@@ -16,7 +18,7 @@ def main():
                                 2,
                                 1e8, 
                                 '',
-                                1,
+                                2,
                                 'Оригинал, отвечаю, лично из рук Вин Дизеля брал))')
     
     accessories_chain2 = Product('Цепочка_Вин_Дозатор_2',
@@ -56,21 +58,36 @@ def main():
     branch_accessories.sort_by_price()
 
     root.display(0)
-    '''
-    root = Product_Catalog('Root')
-
-    list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
-    store = Store(list_of_products)
-
-    leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
-    root.add(leaf_tshirt_anapa)
-
-    shop = Product_Shop(root)
-    store.register(shop)
-
-    store.change_product(list_of_products[0], -2)
-    print(leaf_tshirt_anapa.product.stock_quantity)
     
+    # root = Product_Catalog('Root')
+
+    # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
+    # store = Store(list_of_products)
+
+    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
+    # root.add(leaf_tshirt_anapa)
+
+    # shop = Product_Shop(root)
+    # store.register(shop)
+
+    # store.change_product(list_of_products[0], -2)
+    # print(leaf_tshirt_anapa.product.stock_quantity)
+
+    store = Store(list())
+    store.add_product(tshirt_anapa)
+    store.add_product(accessories_chain)
+    store.add_product(accessories_chain2)
+    store.add_product(tshirt_blkc)
+
+    cart = Cart()
+    cart.add_to_cart('Майка_Анапа_2007', 1)
+    cart.add_to_cart('Цепочка_Вин_Дозатор', 2)
+    cart.add_to_cart('Цепочка_Вин_Дозатор_2', 10)
+
+    order = Order('Заказ1', 5, 'Крамсякин', 'Br', cart, store)
+    order.complete_order()
+
+    print(order.user_cart.cart_dictionary)    
 
 if __name__ == '__main__':
     main()

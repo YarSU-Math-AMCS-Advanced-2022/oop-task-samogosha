@@ -18,10 +18,10 @@ class Order:
     def fix_cart(self):
         flag = True
 
-        for key, value in self.user_cart:
+        for key in self.user_cart.cart_dictionary.keys():
             some_product = self.store.find_by_name(key)
-            if some_product.stock_quantity < value:
-                value = some_product.stock_quantity
+            if some_product.stock_quantity < self.user_cart.cart_dictionary[key]:
+                self.user_cart.cart_dictionary[key] = some_product.stock_quantity
                 flag = False
         
         return flag
