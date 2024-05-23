@@ -73,6 +73,8 @@ def main():
     # store.change_product(list_of_products[0], -2)
     # print(leaf_tshirt_anapa.product.stock_quantity)
 
+
+    '''
     store = Store(list())
     store.add_product(tshirt_anapa)
     store.add_product(accessories_chain)
@@ -88,6 +90,10 @@ def main():
     order.complete_order()
 
     print(order.user_cart.cart_dictionary)    
+    '''
+    
+    
+    # hash()
 
 if __name__ == '__main__':
     main()

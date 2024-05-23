@@ -4,11 +4,13 @@ from Product import Product
 
 class Product_Shop(Observer):
     __instance = None
+    
 
     def __init__(self, catalog: Product_Catalog):
         if not Product_Shop.__instance:
             Product_Shop.__instance = self
             self.catalog = catalog
+            self.hash_table = [0]*1e8
 
     def update(self, old_product, product):
         updated_prod = self.find_product(old_product)
@@ -32,5 +34,12 @@ class Product_Shop(Observer):
         for product in self.catalog.get_children_list():
             product.Product_print()
             print()
+            
+    def get_hash(self, product: Product):
+        return hash(product.product_name)
+    
+    def add_to_hash(self, product: Product):
+        self.hash_table[self.get_hash(product) % len(self.hash_table)] = product
+
 
     
