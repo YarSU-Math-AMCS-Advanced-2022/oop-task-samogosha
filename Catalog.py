@@ -23,5 +23,12 @@ class Product_Catalog(Composite):
                 return
             else:
                 return prod.find_product(product)
-                
+    
+    def find_by_name(self, name: str):
+        if self.name == name:
+            return self
+        else:
+            for child in self.children:
+                return child.find_by_name(name)
+            
 

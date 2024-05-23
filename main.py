@@ -53,12 +53,35 @@ def main():
     root.add(branch_tshirts)
     root.add(branch_accessories)
 
-    root.display(0)
-
     branch_accessories.sort_by_price()
-
-    root.display(0)
     
+    shop = Product_Shop()
+
+    shop.add_category_to_catalog('root', 'T-shirts')
+    shop.add_product_to_catalog('T-shirts', tshirt_anapa)
+
+    shop.catalog.display(0)
+
+    # while True:
+
+    #     print('Выберите действие:')
+    #     print('1) Добавить товар в каталог')
+    #     print('2) Добавить категорию в каталог')
+    #     print('3) Вывести каталог')
+    #     print('4) Закрыть программу')
+
+    #     choice = int(input())
+
+    #     match choice:
+    #         case 1:
+    #             print('Выберите категорию для добавления')
+    #             category = input()
+    #             print('')
+    #         case 2:
+    #         case 3:
+    #         case 4:
+
+
     # root = Product_Catalog('Root')
 
     # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
@@ -67,7 +90,6 @@ def main():
     # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
     # root.add(leaf_tshirt_anapa)
 
-    # shop = Product_Shop(root)
     # store.register(shop)
 
     # store.change_product(list_of_products[0], -2)
