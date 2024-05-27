@@ -3,12 +3,15 @@ from Product import Product
 from copy import deepcopy
 from Store import Store
 from Cart import Cart
+import numpy as np
 
 class Order:
 
-
-    def __init__(self, title, order_id, recipient, destination, user_cart: Cart, our_store: Store):
-        self.title = title
+    def __init__(self, order_id = None, 
+                       recipient = None, 
+                       destination = None,
+                       user_cart: Cart | None = None, 
+                       our_store: Store | None = None):
         self.order_id = order_id
         self.recipient = recipient
         self.destination = destination
@@ -24,9 +27,15 @@ class Order:
                 self.user_cart.cart_dictionary[key] = some_product.stock_quantity
                 flag = False
         
-        return flag
-                
+        return flag      
     
+    def create_order(self, cart: Cart, store: Store):
+        self.order_id = 0
+        self.recipient = input('Enter your surname and first name: ')
+        self.destination = input('Enter delivery point: ')
+        self.user_cart = cart
+        self.store = store
+        
 
     def complete_order(self):
         if self.fix_cart():

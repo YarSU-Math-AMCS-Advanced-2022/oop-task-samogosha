@@ -7,22 +7,24 @@ class Product_Type(enum.Enum):
 
 # Класс "Товар"
 class Product:
-    def __init__(self, product_name: str, 
-                 
-                 #ЗДЕСЬ ВРЕМЕННО INT
-                 product_type: int, 
-                 
-                 
-                 product_price: int, 
-                 product_photo: str,
-                 product_stock_quantity: int,
-                 product_description : str):
+    def __init__(self, product_name = None, 
+                
+                 product_type = None, 
+                 product_price = None, 
+                 product_photo = None,
+                 product_stock_quantity = None,
+                 product_description = None):
         self.product_name = product_name
         self.type = product_type
         self.price = product_price
         self.photo = product_photo
         self.stock_quantity = product_stock_quantity
         self.description = product_description
+    
+    def create_product(self):
+        #!!!!ДОПИСАТЬ
+        a = int(input())
+        self.type = a
     
     def Select_Product_Type(self, our_type):
         if our_type == Product_Type.FIRST.value:
@@ -60,4 +62,3 @@ class Product:
             return True
         else:
             return False
-        

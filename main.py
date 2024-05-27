@@ -4,6 +4,7 @@ from Shop import Product_Shop
 from Store import Store
 from Cart import Cart
 from Order import Order
+from Marketplace import MarketplaceFacade
 
 def main():
 
@@ -37,30 +38,52 @@ def main():
 
     root = Product_Catalog('Root')
 
-    branch_tshirts = Product_Catalog('TShirts')
-    branch_accessories = Product_Catalog('Accessories')
+    # branch_tshirts = Product_Catalog('TShirts')
+    # branch_accessories = Product_Catalog('Accessories')
 
-    leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
-    leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
-    leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
-    leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
+    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
+    # leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
+    # leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
+    # leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
 
-    branch_tshirts.add(leaf_tshirt_anapa)
-    branch_tshirts.add(leaf_tshirt_blck)
-    branch_accessories.add(leaf_accessories_chain)
-    branch_accessories.add(leaf_accessories_chain2)
+    # branch_tshirts.add(leaf_tshirt_anapa)
+    # branch_tshirts.add(leaf_tshirt_blck)
+    # branch_accessories.add(leaf_accessories_chain)
+    # branch_accessories.add(leaf_accessories_chain2)
 
-    root.add(branch_tshirts)
-    root.add(branch_accessories)
+    # root.add(branch_tshirts)
+    # root.add(branch_accessories)
 
-    branch_accessories.sort_by_price()
+    # branch_accessories.sort_by_price()
     
     shop = Product_Shop()
-
     shop.add_category_to_catalog('root', 'T-shirts')
     shop.add_product_to_catalog('T-shirts', tshirt_anapa)
+    
+    #list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
+    store = Store(list())
+    store.add_product(tshirt_anapa)
+    store.add_product(accessories_chain)
+    store.add_product(accessories_chain2)
+    store.add_product(tshirt_blkc)
+    
+    cart = Cart()
+    order = Order()
+    
+    facade = MarketplaceFacade(shop, store, cart, order)
+    
+    facade.place_order()
+    print(facade.order.destination)
 
-    shop.catalog.display(0)
+    # shop.add_category_to_catalog('root', 'T-shirts')
+    # shop.add_product_to_catalog('T-shirts', tshirt_anapa)
+
+    # shop.catalog.display(0)
+    
+    
+    
+    
+    
 
     # while True:
 
