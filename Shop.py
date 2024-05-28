@@ -33,7 +33,8 @@ class Product_Shop(Observer):
         self.catalog.find_by_name(product).remove()
         
     def remove_category_from_catalog(self, category: Product_Catalog):
-        self.catalog.find_by_name(category).remove()
+        delete = self.catalog.find_by_name(category.name)
+        self.catalog.find_father(delete).remove(delete)
 
     def sort_by_price(self):
         self.catalog.sort_by_price()

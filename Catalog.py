@@ -24,11 +24,19 @@ class Product_Catalog(Composite):
             else:
                 return prod.find_product(product)
     
+    def find_father(self, child):
+
+        if child in self.children:
+            return self
+        
+        for child_node in self.children:
+            return child_node.find_father(child)
+
     def find_by_name(self, name: str):
         if self.name == name:
             return self
         else:
             for child in self.children:
                 return child.find_by_name(name)
-            
+            return
 

@@ -72,8 +72,11 @@ def main():
     
     facade = MarketplaceFacade(shop, store, cart, order)
     
-    facade.place_order()
-    print(facade.order.destination)
+    #facade.place_order()
+    facade.product_shop.catalog.display(0)
+    facade.remove_category_from_marketplace()
+    facade.product_shop.catalog.display(0)
+    #print(facade.order.destination)
 
     # shop.add_category_to_catalog('root', 'T-shirts')
     # shop.add_product_to_catalog('T-shirts', tshirt_anapa)
