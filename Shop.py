@@ -9,7 +9,6 @@ class Product_Shop(Observer):
     def __init__(self, catalog: Product_Catalog):
         if not Product_Shop.__instance:
             Product_Shop.__instance = self
-            self.catalog = catalog
             self.hash_table = [0]*1e8
 
     def update(self, old_product, product):
