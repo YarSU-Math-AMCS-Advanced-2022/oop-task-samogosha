@@ -3,13 +3,13 @@ from Product import Product
 from copy import deepcopy
 from Store import Store
 from Cart import Cart
-import numpy as np
+from PickUpPoint import PickUpPoint
 
 class Order:
 
     def __init__(self, order_id = None, 
                        recipient = None, 
-                       destination = None,
+                       destination: PickUpPoint | None = None,
                        user_cart: Cart | None = None, 
                        our_store: Store | None = None):
         self.order_id = order_id
@@ -37,10 +37,13 @@ class Order:
         self.store = store
         
 
-    def complete_order(self):
+    def complete_order(self, pick_up_point: PickUpPoint):
         if self.fix_cart():
-            for key, value in self.user_cart:
+            for key in self.user_cart.cart_dictionary.keys():
                 some_product = self.store.find_by_name(key)
-                self.store.change_product(some_product, -value)
+                self.store.change_product(some_product, -self.user_cart.cart_dictionary[key])
+                self.destination = pick_up_point
+            self.destination.add_package(self.order_id)
         else:
             print('Your shopping cart has been updated')
+        return self

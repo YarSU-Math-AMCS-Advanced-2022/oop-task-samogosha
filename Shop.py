@@ -1,6 +1,7 @@
 from Catalog import Product_Catalog
 from Observer import Observer
 from Product import Product
+from PickUpPoint import PickUpPoint
 
 class Product_Shop(Observer):
     __instance = None
@@ -11,6 +12,7 @@ class Product_Shop(Observer):
             Product_Shop.__instance = self
             self.catalog = Product_Catalog('root')
             self.hash_table = [0] * (10**8)
+            self.pick_up_points = []
 
     def update(self, old_product, product):
         updated_prod = self.find_product(old_product)
