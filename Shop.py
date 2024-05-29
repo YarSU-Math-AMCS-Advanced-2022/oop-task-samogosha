@@ -11,7 +11,7 @@ class Product_Shop(Observer):
         if not Product_Shop.__instance:
             Product_Shop.__instance = self
             self.catalog = Product_Catalog('root')
-            self.hash_table = [0] * (10**8)
+            self.hash_table = dict()
             self.pick_up_points = []
 
     def update(self, old_product, product):
@@ -51,7 +51,7 @@ class Product_Shop(Observer):
         return hash(product.product_name)
 
     def add_to_hash(self, product: Product):
-        self.hash_table[self.get_hash(product) % len(self.hash_table)] = product
+        self.hash_table[self.get_hash(product) % 10000] = product
 
     def add_category_to_catalog(self, category_name: str, new_category_name: str):
         new_category = Product_Catalog(new_category_name)
@@ -60,5 +60,21 @@ class Product_Shop(Observer):
     def add_product_to_catalog(self, category_name: str, product: Product):
         new_product = Product_Catalog(product.product_name, product)
         self.find_in_catalog(category_name).add(new_product)
-        self.add_to_hash(product)  
-        
+        self.add_to_hash(product) 
+
+    def add_products_from_file(self, file_name: str):
+        file = open(file_name)
+        for line in file:
+            if line == '\n':
+                break
+            lst = line.split()
+            prod = Product(lst[1], lst[2], lst[3], ' '.join(lst[4:]))
+            self.add_product_to_catalog(lst[0], prod)
+        file.close()
+
+    def add_category_from_file(self, file_name: str):
+        file = open(file_name)
+        for line in file:
+            lst = line.split()
+            self.add_category_to_catalog(lst[0], lst[1])
+        file.close()

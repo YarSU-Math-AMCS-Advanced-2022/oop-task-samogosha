@@ -1,0 +1,7 @@
+root Shirts
+root Accessories
+root Hat
+root Outerwear
+Outerwear Shorts
+Outerwear Jeans
+Outerwear Pants

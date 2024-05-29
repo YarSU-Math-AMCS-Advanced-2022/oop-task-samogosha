@@ -1,0 +1,12 @@
+Shirts Jersey_Anapa_2007 100 1 That jersey))
+Accessories Chain_Gold 100000 2 Original, from Vin Diesel
+Accessories Chain_Bronze 10 1 Not original, not from Vin Diesel
+Shirts Tshirt_Black 1 50 Cool brother
+Shirts Tshirt_Blue 3 10 Maks likes that
+Shirts Jersey_Igonin_best 1 1 Bazis))
+Shorts Diffur_na_8_let 99 124242 Sale
+Shirts Stanislav_Iland 24 234242 Orig
+Hat Cap_Olegatar 0 12000 BTS MY LOVE
+Accessories Sous_Maslo_pin 2 1 SOUS OR MASLO? 
+Accessories Stolik_y_tolika 1 10000 tolik_y_stolika
+
