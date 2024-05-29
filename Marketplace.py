@@ -15,7 +15,7 @@ class MarketplaceFacade:
         self.order = Order
         
 
-    def add_product_to_marketplace(self):
+    def add_product_to_catalog(self):
         print('Select a category to add a product:')
         name_category = input()
         new_product = Product()
@@ -23,7 +23,7 @@ class MarketplaceFacade:
         self.product_shop.add_product_to_catalog(name_category, new_product)
         print("Product successfully added to the marketplace.")
         
-    def add_category_to_marketplace(self):
+    def add_category_to_catalog(self):
         print('Select a category to add a new category: ')
         name_category = input()
         print('Enter new category name: ')
@@ -31,14 +31,14 @@ class MarketplaceFacade:
         self.product_shop.add_category_to_catalog(name_category, new_name_category)
         print('Category successfully added to the marketplace.')
 
-    def remove_product_from_marketplace(self):
+    def remove_product_from_catalog(self):
         print('Select the product you want to delete: ')
         our_product_name = input()
         our_item = self.product_shop.find_in_catalog(our_product_name)
         self.product_shop.remove_product_from_catalog(our_item.product)
         print("Product successfully removed from the marketplace.")
         
-    def remove_category_from_marketplace(self):
+    def remove_category_from_catalog(self):
         print('Select the category you want to delete: ')
         our_category_name = input()
         our_item = self.product_shop.find_in_catalog(our_category_name)

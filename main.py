@@ -6,6 +6,7 @@ from Cart import Cart
 from Order import Order
 from Marketplace import MarketplaceFacade
 from PickUpPoint import PickUpPoint
+from Menu import Menu
 
 def main():
 
@@ -37,25 +38,25 @@ def main():
                           2, 
                           'Классная брат, ещё не помялась')
 
-    root = Product_Catalog('Root')
+    # root = Product_Catalog('Root')
 
-    branch_tshirts = Product_Catalog('TShirts')
-    branch_accessories = Product_Catalog('Accessories')
+    # branch_tshirts = Product_Catalog('TShirts')
+    # branch_accessories = Product_Catalog('Accessories')
 
-    leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
-    leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
-    leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
-    leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
+    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
+    # leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
+    # leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
+    # leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
 
-    branch_tshirts.add(leaf_tshirt_anapa)
-    branch_tshirts.add(leaf_tshirt_blck)
-    branch_accessories.add(leaf_accessories_chain)
-    branch_accessories.add(leaf_accessories_chain2)
+    # branch_tshirts.add(leaf_tshirt_anapa)
+    # branch_tshirts.add(leaf_tshirt_blck)
+    # branch_accessories.add(leaf_accessories_chain)
+    # branch_accessories.add(leaf_accessories_chain2)
 
-    root.add(branch_tshirts)
-    root.add(branch_accessories)
+    # root.add(branch_tshirts)
+    # root.add(branch_accessories)
 
-    branch_accessories.sort_by_price()
+    # branch_accessories.sort_by_price()
     
     shop = Product_Shop()
     shop.add_category_to_catalog('root', 'T-shirts')
@@ -85,17 +86,16 @@ def main():
     order.complete_order(pick_up_point)
     order.complete_order(pick_up_point)
     print(order.user_cart.cart_dictionary)    
+    
+    
+    
+    # hash()
 
-    print(pick_up_point.packages[0], ' ', order.order_id)
+    Marketplace = MarketplaceFacade(shop, store, cart, order)
 
+    menu = Menu(Marketplace)
 
-    facade = MarketplaceFacade(shop, store, cart, order)
-    facade.product_shop.catalog.display(0)
-    #facade.remove_category_from_marketplace()
-    #facade.add_category_to_marketplace()
-    facade.remove_product_from_marketplace()
-    facade.remove_category_from_marketplace()
-    facade.product_shop.catalog.display(0)
+    menu.work_start()
 
 if __name__ == '__main__':
     main()
