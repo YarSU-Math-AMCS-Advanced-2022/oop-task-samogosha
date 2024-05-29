@@ -26,8 +26,8 @@ class Order:
             if some_product.stock_quantity < self.user_cart.cart_dictionary[key]:
                 self.user_cart.cart_dictionary[key] = some_product.stock_quantity
                 flag = False
-        
-        return flag      
+
+        return flag
     
     def create_order(self, cart: Cart, store: Store):
         self.order_id = 0

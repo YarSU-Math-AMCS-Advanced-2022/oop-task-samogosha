@@ -14,9 +14,7 @@ def main():
     shop.add_category_from_file('category_data.txt')
     shop.add_products_from_file('data_of_products.txt')
 
-    store = Store(list())
-    for key in shop.hash_table:
-        store.add_product(shop.hash_table[key]) 
+    store = Store(list()) 
 
     cart = Cart()
     # cart.add_to_cart('Майка_Анапа_2007', 1)
@@ -33,6 +31,7 @@ def main():
     
 
     Marketplace = MarketplaceFacade(shop, store, cart, order)
+    Marketplace.add_prod_from_shop_to_store()
 
     menu = Menu(Marketplace)
 

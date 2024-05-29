@@ -64,3 +64,7 @@ class MarketplaceFacade:
     def cancel_order(self):
         self.order = Order()
         print('Order successfully canceled')
+
+    def add_prod_from_shop_to_store(self):
+        for key in self.shop.hash_table:
+            self.store.add_product(self.shop.hash_table[key])
