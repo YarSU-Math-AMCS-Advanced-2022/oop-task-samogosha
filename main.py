@@ -59,70 +59,13 @@ def main():
     
     shop = Product_Shop()
     shop.add_category_to_catalog('root', 'T-shirts')
+    shop.add_category_to_catalog('root', 'Shtani')
+    shop.add_category_to_catalog('Shtani', 'Shorti')
+    shop.add_category_to_catalog('Shtani', 'Pantsu')
+    shop.add_product_to_catalog('Shorti', tshirt_anapa)
+    shop.add_product_to_catalog('Pantsu', tshirt_anapa)
+    shop.add_product_to_catalog('Shtani', tshirt_anapa)
     shop.add_product_to_catalog('T-shirts', tshirt_anapa)
-    
-    # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
-    # store = Store(list())
-    # store.add_product(tshirt_anapa)
-    # store.add_product(accessories_chain)
-    # store.add_product(accessories_chain2)
-    # store.add_product(tshirt_blkc)
-    
-    # cart = Cart()
-    # order = Order()
-    
-    # facade = MarketplaceFacade(shop, store, cart, order)
-    
-    # #facade.place_order()
-    # facade.product_shop.catalog.display(0)
-    # facade.remove_category_from_marketplace()
-    # facade.product_shop.catalog.display(0)
-    # #print(facade.order.destination)
-
-    # shop.add_category_to_catalog('root', 'T-shirts')
-    # shop.add_product_to_catalog('T-shirts', tshirt_anapa)
-
-    # shop.catalog.display(0)
-    
-    
-    
-    
-    
-
-    # while True:
-
-    #     print('Выберите действие:')
-    #     print('1) Добавить товар в каталог')
-    #     print('2) Добавить категорию в каталог')
-    #     print('3) Вывести каталог')
-    #     print('4) Закрыть программу')
-
-    #     choice = int(input())
-
-    #     match choice:
-    #         case 1:
-    #             print('Выберите категорию для добавления')
-    #             category = input()
-    #             print('')
-    #         case 2:
-    #         case 3:
-    #         case 4:
-
-
-    # root = Product_Catalog('Root')
-
-    # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
-    # store = Store(list_of_products)
-
-    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
-    # root.add(leaf_tshirt_anapa)
-
-    # store.register(shop)
-
-    # store.change_product(list_of_products[0], -2)
-    # print(leaf_tshirt_anapa.product.stock_quantity)
-
-
 
     store = Store(list())
     store.add_product(tshirt_anapa)
@@ -143,6 +86,12 @@ def main():
     print(order.user_cart.cart_dictionary)    
 
     print(pick_up_point.packages[0], ' ', order.order_id)
+
+
+    facade = MarketplaceFacade(shop, store, cart, order)
+    facade.product_shop.catalog.display(0)
+    facade.remove_category_from_marketplace()
+    facade.product_shop.catalog.display(0)
 
 if __name__ == '__main__':
     main()
