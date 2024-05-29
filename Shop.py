@@ -10,13 +10,9 @@ class Product_Shop(Observer):
     def __init__(self):
         if not Product_Shop.__instance:
             Product_Shop.__instance = self
-<<<<<<< HEAD
-            self.hash_table = [0]*1e8
-=======
             self.catalog = Product_Catalog('root')
             self.hash_table = [0] * (10**8)
             self.pick_up_points = []
->>>>>>> dev_Marketplace
 
     def update(self, old_product, product):
         updated_prod = self.find_product(old_product)
@@ -65,3 +61,4 @@ class Product_Shop(Observer):
         new_product = Product_Catalog(product.product_name, product)
         self.find_in_catalog(category_name).add(new_product)
         self.add_to_hash(product)  
+        

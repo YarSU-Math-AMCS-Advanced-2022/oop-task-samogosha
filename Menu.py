@@ -20,12 +20,19 @@ class Menu():
             else:
                 print('Incorrect password!')
         elif (user.lower() == 'customer' or user.lower() == 'c'):
+            self.user = 'Customer'
             print('You have successfully logged in as customer!')
             print('Welcome to marketplace!')
 
 
     def show_customer_menu(self):
-        print('Customer')
+        print('0) Change user')
+        print('1) Show catalog')
+        print('2) Add product to cart')
+        print('3) Show cart')
+        print('4) Place an order')
+        print('5) Show menu again')
+        print('6) Exit programm')
 
     
     def show_admin_menu(self):
@@ -40,7 +47,9 @@ class Menu():
 
 
     def change_user(self):
-        return '))))'
+        self.user = None
+        self.admin_password = None
+        self.log_in()
 
     def action_select_admin(self):
         action_num = int(input('Select an action from the menu: '))
@@ -64,6 +73,27 @@ class Menu():
                 sys.exit()
             case _:
                 print('Unknown command')
+                
+    def action_select_customer(self):
+        action_num = int(input('Select an action from the menu: '))
+        
+        match action_num:
+            case 0:
+                self.change_user()
+            case 1:
+                self.Marketplace.product_shop.catalog.display(0)
+            case 2:
+                self.Marketplace.add_to_cart()
+            case 3:
+                self.Marketplace.show_cart()
+            case 4:
+                self.Marketplace.place_order()
+            case 5:
+                self.show_customer_menu()
+            case 6:
+                sys.exit()
+            case _:
+                print('Unknown command')
 
     
     def show_menu(self, user):
@@ -84,4 +114,4 @@ class Menu():
             if self.user == 'Admin':
                 self.action_select_admin()
             else:
-                print('')
+                self.action_select_customer()

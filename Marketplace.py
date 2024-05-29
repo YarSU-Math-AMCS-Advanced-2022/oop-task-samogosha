@@ -51,6 +51,10 @@ class MarketplaceFacade:
         count = int(input(f'How many {product_name} would you like to add? '))
         self.cart.add_to_cart(product_name, count)
         print("Products successfully added to cart.")
+        
+    def show_cart(self):
+        print('Your shopping cart looks like this:')
+        self.cart.show_cart()
 
     def place_order(self):
         self.order.create_order(self.cart, self.store)

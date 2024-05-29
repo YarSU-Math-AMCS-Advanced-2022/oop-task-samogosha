@@ -21,3 +21,7 @@ class Cart:
             self.cart_dictionary.pop(name_product)
         else:
             self.cart_dictionary[name_product] -= count
+            
+    def show_cart(self):
+        for keys in self.cart_dictionary:
+            print(keys, self.cart_dictionary[keys])

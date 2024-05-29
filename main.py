@@ -37,26 +37,6 @@ def main():
                           '', 
                           2, 
                           'Классная брат, ещё не помялась')
-
-    # root = Product_Catalog('Root')
-
-    # branch_tshirts = Product_Catalog('TShirts')
-    # branch_accessories = Product_Catalog('Accessories')
-
-    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', tshirt_anapa)
-    # leaf_tshirt_blck = Product_Catalog('TShirt_Blck', tshirt_blkc)
-    # leaf_accessories_chain = Product_Catalog('Accessories_Chain', accessories_chain)
-    # leaf_accessories_chain2 = Product_Catalog('Accessories_Chain2', accessories_chain2)
-
-    # branch_tshirts.add(leaf_tshirt_anapa)
-    # branch_tshirts.add(leaf_tshirt_blck)
-    # branch_accessories.add(leaf_accessories_chain)
-    # branch_accessories.add(leaf_accessories_chain2)
-
-    # root.add(branch_tshirts)
-    # root.add(branch_accessories)
-
-    # branch_accessories.sort_by_price()
     
     shop = Product_Shop()
     shop.add_category_to_catalog('root', 'T-shirts')
@@ -76,20 +56,17 @@ def main():
     store.add_product(tshirt_blkc)
 
     cart = Cart()
-    cart.add_to_cart('Майка_Анапа_2007', 1)
-    cart.add_to_cart('Цепочка_Вин_Дозатор', 2)
-    cart.add_to_cart('Цепочка_Вин_Дозатор_2', 10)
+    # cart.add_to_cart('Майка_Анапа_2007', 1)
+    # cart.add_to_cart('Цепочка_Вин_Дозатор', 2)
+    # cart.add_to_cart('Цепочка_Вин_Дозатор_2', 10)
 
     pick_up_point = PickUpPoint("Королево 27/5")
 
     order = Order(5, 'Крамсякин', 'Br', cart, store)
-    order.complete_order(pick_up_point)
-    order.complete_order(pick_up_point)
-    print(order.user_cart.cart_dictionary)    
+    #order.complete_order(pick_up_point)
+    #order.complete_order(pick_up_point)
+    #print(order.user_cart.cart_dictionary)    
     
-    
-    
-    # hash()
 
     Marketplace = MarketplaceFacade(shop, store, cart, order)
 
