@@ -63,6 +63,7 @@ def main():
     shop.add_category_to_catalog('Shtani', 'Shorti')
     shop.add_category_to_catalog('Shtani', 'Pantsu')
     shop.add_product_to_catalog('Shorti', tshirt_anapa)
+    shop.add_product_to_catalog('Shorti', tshirt_blkc)
     shop.add_product_to_catalog('Pantsu', tshirt_anapa)
     shop.add_product_to_catalog('Shtani', tshirt_anapa)
     shop.add_product_to_catalog('T-shirts', tshirt_anapa)
@@ -90,6 +91,9 @@ def main():
 
     facade = MarketplaceFacade(shop, store, cart, order)
     facade.product_shop.catalog.display(0)
+    #facade.remove_category_from_marketplace()
+    #facade.add_category_to_marketplace()
+    facade.remove_product_from_marketplace()
     facade.remove_category_from_marketplace()
     facade.product_shop.catalog.display(0)
 

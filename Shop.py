@@ -32,7 +32,8 @@ class Product_Shop(Observer):
         return self.catalog.find_by_name(name)
 
     def remove_product_from_catalog(self, product: Product):
-        self.catalog.find_by_name(product).remove()
+        delete = self.catalog.find_by_name(product.product_name)
+        self.catalog.find_father(delete).remove(delete)
         
     def remove_category_from_catalog(self, category: Product_Catalog):
         delete = self.catalog.find_by_name(category.name)
