@@ -4,6 +4,8 @@ from Shop import Product_Shop
 from Store import Store
 from Cart import Cart
 from Order import Order
+from Marketplace import MarketplaceFacade
+from PickUpPoint import PickUpPoint
 
 def main():
 
@@ -53,28 +55,19 @@ def main():
     root.add(branch_tshirts)
     root.add(branch_accessories)
 
-    root.display(0)
-
     branch_accessories.sort_by_price()
-
-    root.display(0)
     
-    # root = Product_Catalog('Root')
+    shop = Product_Shop()
+    shop.add_category_to_catalog('root', 'T-shirts')
+    shop.add_category_to_catalog('root', 'Shtani')
+    shop.add_category_to_catalog('Shtani', 'Shorti')
+    shop.add_category_to_catalog('Shtani', 'Pantsu')
+    shop.add_product_to_catalog('Shorti', tshirt_anapa)
+    shop.add_product_to_catalog('Shorti', tshirt_blkc)
+    shop.add_product_to_catalog('Pantsu', tshirt_anapa)
+    shop.add_product_to_catalog('Shtani', tshirt_anapa)
+    shop.add_product_to_catalog('T-shirts', tshirt_anapa)
 
-    # list_of_products = [Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))')]
-    # store = Store(list_of_products)
-
-    # leaf_tshirt_anapa = Product_Catalog('TShirt_Anapa', Product('Майка_Анапа_2007', 3, 100, '', 1, 'Та самая))'))
-    # root.add(leaf_tshirt_anapa)
-
-    # shop = Product_Shop(root)
-    # store.register(shop)
-
-    # store.change_product(list_of_products[0], -2)
-    # print(leaf_tshirt_anapa.product.stock_quantity)
-
-
-    '''
     store = Store(list())
     store.add_product(tshirt_anapa)
     store.add_product(accessories_chain)
@@ -86,14 +79,23 @@ def main():
     cart.add_to_cart('Цепочка_Вин_Дозатор', 2)
     cart.add_to_cart('Цепочка_Вин_Дозатор_2', 10)
 
-    order = Order('Заказ1', 5, 'Крамсякин', 'Br', cart, store)
-    order.complete_order()
+    pick_up_point = PickUpPoint("Королево 27/5")
 
+    order = Order(5, 'Крамсякин', 'Br', cart, store)
+    order.complete_order(pick_up_point)
+    order.complete_order(pick_up_point)
     print(order.user_cart.cart_dictionary)    
-    '''
-    
-    
-    # hash()
+
+    print(pick_up_point.packages[0], ' ', order.order_id)
+
+
+    facade = MarketplaceFacade(shop, store, cart, order)
+    facade.product_shop.catalog.display(0)
+    #facade.remove_category_from_marketplace()
+    #facade.add_category_to_marketplace()
+    facade.remove_product_from_marketplace()
+    facade.remove_category_from_marketplace()
+    facade.product_shop.catalog.display(0)
 
 if __name__ == '__main__':
     main()

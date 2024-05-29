@@ -23,5 +23,26 @@ class Product_Catalog(Composite):
                 return
             else:
                 return prod.find_product(product)
-                
+    
+    def find_father(self, child):
+
+        if(self.product == None):
+            if child in self.children:
+                return self
+            
+            for child_node in self.children:
+                buff = child_node.find_father(child)
+                if buff != None and child in buff.children:
+                    return buff
+        return
+
+    def find_by_name(self, name: str):
+        if self.name == name:
+            return self
+        if(self.product == None):
+            for child in self.children:
+                buff = child.find_by_name(name)
+                if buff != None and buff.name == name:
+                    return buff
+        return None
 
