@@ -4,6 +4,7 @@ from Shop import Product_Shop
 from Store import Store
 from Cart import Cart
 from Order import Order
+from PickUpPoint import PickUpPoint
 
 # Product_Shop, Store, Cart, Order
 
@@ -53,18 +54,24 @@ class MarketplaceFacade:
         print("Products successfully added to cart.")
         
     def show_cart(self):
-        print('Your shopping cart looks like this:')
-        self.cart.show_cart()
+        if len(self.cart.cart_dictionary) == 0:
+            print('Your shopping cart is empty')
+        else:
+            print('Your shopping cart looks like this:')
+            self.cart.show_cart()
 
     def place_order(self):
         self.order.create_order(self.cart, self.store)
+        pickup_point = PickUpPoint(self.order.destination)
+        self.order.complete_order(pickup_point)
         print('Your order has been placed')
-        
+        self.order.user_cart.clear_cart()
+        #self.order.user_cart = Cart()  
 
     def cancel_order(self):
         self.order = Order()
         print('Order successfully canceled')
 
     def add_prod_from_shop_to_store(self):
-        for key in self.shop.hash_table:
-            self.store.add_product(self.shop.hash_table[key])
+        for key in self.product_shop.hash_table:
+            self.store.add_product(self.product_shop.hash_table[key])

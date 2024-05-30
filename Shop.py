@@ -68,7 +68,7 @@ class Product_Shop(Observer):
             if line == '\n':
                 break
             lst = line.split()
-            prod = Product(lst[1], lst[2], lst[3], ' '.join(lst[4:]))
+            prod = Product(lst[1], int(lst[2]), int(lst[3]), ' '.join(lst[4:]))
             self.add_product_to_catalog(lst[0], prod)
         file.close()
 

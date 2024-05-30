@@ -32,7 +32,8 @@ class Order:
     def create_order(self, cart: Cart, store: Store):
         self.order_id = 0
         self.recipient = input('Enter your surname and first name: ')
-        self.destination = input('Enter delivery point: ')
+        print('Zavolga', 'Bragino', 'Center')
+        self.destination = input('Select a pickup point from the line above: ')
         self.user_cart = cart
         self.store = store
         

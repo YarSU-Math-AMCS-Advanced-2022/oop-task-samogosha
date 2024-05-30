@@ -9,6 +9,9 @@ class Cart:
     def __init__(self):
         if not Cart.__instance:
             self.__instance = self
+            
+    def clear_cart(self):
+        self.cart_dictionary = dict()
 
     def add_to_cart(self, name_product: str, count: int):
         if name_product not in self.cart_dictionary.keys():
