@@ -4,6 +4,7 @@ from copy import deepcopy
 from Store import Store
 from Cart import Cart
 from PickUpPoint import PickUpPoint
+import random
 
 class Order:
 
@@ -30,10 +31,28 @@ class Order:
         return flag
     
     def create_order(self, cart: Cart, store: Store):
-        self.order_id = 0
+        self.order_id = random.randint(10000000,100000000-1)
         self.recipient = input('Enter your surname and first name: ')
-        print('Zavolga', 'Bragino', 'Center')
-        self.destination = input('Select a pickup point from the line above: ')
+        list_places = ['Zavolga', 'Bragino', 'Center']
+        print(*list_places)
+        temp_dest = input('Select a pickup point from the line above: ')
+        flag = False
+        
+        while flag == False:      
+            if temp_dest == 'Zavolga':
+                self.destination = 'Zavolga'
+                flag = True
+            elif temp_dest == 'Bragino':
+                self.destination = 'Bragino'
+                flag = True
+            elif temp_dest == 'Center':
+                self.destination = 'Center'
+                flag = True
+            else:
+                print('Incorrect adress of pickup point, please try again')
+                temp_dest = input('Select a pickup point from the line above: ')
+
+
         self.user_cart = cart
         self.store = store
         

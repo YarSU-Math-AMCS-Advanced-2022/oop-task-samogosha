@@ -48,8 +48,7 @@ class Menu():
 
     def change_user(self):
         self.user = None
-        self.admin_password = None
-        self.log_in()
+        self.work_start()
 
     def action_select_admin(self):
         action_num = int(input('Select an action from the menu: '))

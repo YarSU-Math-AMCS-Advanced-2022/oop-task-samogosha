@@ -13,9 +13,7 @@ class Observable(metaclass=ABCMeta):
         self.observers = []     # инициализация списка наблюдателей
 
     def register(self, observer: Observer) -> None:
-        """
-        Регистрация нового наблюдателя на подписку
-        """
+        #Регистрация нового наблюдателя на подписку
         self.observers.append(observer)
 
     def notify_observers(self, message: str) -> None:

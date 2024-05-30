@@ -19,6 +19,11 @@ class MarketplaceFacade:
     def add_product_to_catalog(self):
         print('Select a category to add a product:')
         name_category = input()
+        
+        exist = self.product_shop.find_in_catalog(name_category)
+        if exist == None:
+            print('Incorrect category, please try again')
+            return
         new_product = Product()
         new_product.create_product()
         self.product_shop.add_product_to_catalog(name_category, new_product)
@@ -27,6 +32,10 @@ class MarketplaceFacade:
     def add_category_to_catalog(self):
         print('Select a category to add a new category: ')
         name_category = input()
+        exist = self.product_shop.find_in_catalog(name_category)
+        if exist == None:
+            print('Incorrect category, please try again')
+            return
         print('Enter new category name: ')
         new_name_category = input()
         self.product_shop.add_category_to_catalog(name_category, new_name_category)
@@ -36,12 +45,19 @@ class MarketplaceFacade:
         print('Select the product you want to delete: ')
         our_product_name = input()
         our_item = self.product_shop.find_in_catalog(our_product_name)
+        if our_item == None:
+            print('Incorrect product, please try again')
+            return
         self.product_shop.remove_product_from_catalog(our_item.product)
         print("Product successfully removed from the marketplace.")
         
     def remove_category_from_catalog(self):
         print('Select the category you want to delete: ')
         our_category_name = input()
+        exist = self.product_shop.find_in_catalog(our_category_name)
+        if exist == None:
+            print('Incorrect category, please try again')
+            return
         our_item = self.product_shop.find_in_catalog(our_category_name)
         self.product_shop.remove_category_from_catalog(our_item)
         print("Category successfully removed from the marketplace.")
@@ -49,6 +65,10 @@ class MarketplaceFacade:
     def add_to_cart(self):
         print('What product would you like to add to your cart? ')
         product_name = input()
+        our_item = self.product_shop.find_in_catalog(product_name)
+        if our_item == None:
+            print('Incorrect product, please try again')
+            return
         count = int(input(f'How many {product_name} would you like to add? '))
         self.cart.add_to_cart(product_name, count)
         print("Products successfully added to cart.")
@@ -73,5 +93,7 @@ class MarketplaceFacade:
         print('Order successfully canceled')
 
     def add_prod_from_shop_to_store(self):
+        if len(self.product_shop.hash_table) == 0:
+            return
         for key in self.product_shop.hash_table:
             self.store.add_product(self.product_shop.hash_table[key])
