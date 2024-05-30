@@ -1,5 +1,6 @@
 from Marketplace import MarketplaceFacade
 import sys
+import os
 
 
 class Menu():
@@ -45,8 +46,9 @@ class Menu():
         print('4) Add category to catalog')
         print('5) Remove category from catalog')
         print('6) Show orders at the pickup point')
-        print('7) Show menu again')
-        print('8) Exit programm')
+        print('7) Create pickup point')
+        print('8) Show menu again')
+        print('9) Exit programm')
 
 
     def change_user(self):
@@ -72,11 +74,15 @@ class Menu():
             case 6:
                 self.Marketplace.show_orders_at_the_pickup_point()
             case 7:
+                self.Marketplace.create_pickup_point()
+            case 8:
                 self.show_admin_menu()
             case 8:
                 sys.exit()
             case _:
+                os.system('cls')
                 print('Unknown command')
+                self.show_admin_menu()
                 
     def action_select_customer(self):
         action_num = int(input('Select an action from the menu: '))
@@ -101,7 +107,9 @@ class Menu():
             case 8:
                 sys.exit()
             case _:
+                os.system('cls')
                 print('Unknown command')
+                self.show_customer_menu()
 
     
     def show_menu(self, user):

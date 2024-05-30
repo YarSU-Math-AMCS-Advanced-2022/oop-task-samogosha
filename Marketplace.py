@@ -16,7 +16,7 @@ class MarketplaceFacade:
         self.cart = Cart()
         self.order = Order()
         self.add_prod_from_shop_to_store()    
-        self.list_of_pickup_points = \
+        self.list_of_pickup_points: list[PickUpPoint] = \
             self.create_list_of_pickup_points(['Zavolga', 'Bragino', 'Center'])
         
     def create_list_of_pickup_points(self, list_of_pickup_points):
@@ -147,6 +147,19 @@ class MarketplaceFacade:
                     order.show_order()
             case _:
                 self.show_orders_at_the_pickup_point()
+
+    def create_pickup_point(self):
+        address = input('Enter the address of the pick-up point: ')
+        
+        for pickup in self.list_of_pickup_points:
+            if pickup.address == address:
+                return pickup
+        
+        new_pickup: PickUpPoint = PickUpPoint(address)
+        self.list_of_pickup_points.append(new_pickup)
+        return new_pickup
+        
+        
 
     def order_total(self):
         order_total = 0
