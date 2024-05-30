@@ -32,8 +32,9 @@ class Menu():
         print('3) Edit cart')
         print('4) Show cart')
         print('5) Place an order')
-        print('6) Show menu again')
-        print('7) Exit programm')
+        print('6) Show orders at the pickup point')
+        print('7) Show menu again')
+        print('8) Exit programm')
 
     
     def show_admin_menu(self):
@@ -43,8 +44,9 @@ class Menu():
         print('3) Remove product from catalog')
         print('4) Add category to catalog')
         print('5) Remove category from catalog')
-        print('6) Show menu again')
-        print('7) Exit programm')
+        print('6) Show orders at the pickup point')
+        print('7) Show menu again')
+        print('8) Exit programm')
 
 
     def change_user(self):
@@ -68,8 +70,10 @@ class Menu():
             case 5:
                 self.Marketplace.remove_category_from_catalog()
             case 6:
-                self.show_admin_menu()
+                self.Marketplace.show_orders_at_the_pickup_point()
             case 7:
+                self.show_admin_menu()
+            case 8:
                 sys.exit()
             case _:
                 print('Unknown command')
@@ -91,8 +95,10 @@ class Menu():
             case 5:
                 self.Marketplace.place_order()
             case 6:
-                self.show_customer_menu()
+                self.Marketplace.show_orders_at_the_pickup_point()
             case 7:
+                self.show_customer_menu()
+            case 8:
                 sys.exit()
             case _:
                 print('Unknown command')

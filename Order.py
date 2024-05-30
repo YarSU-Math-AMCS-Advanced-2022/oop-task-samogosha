@@ -10,7 +10,7 @@ class Order:
 
     def __init__(self, order_id = None, 
                        recipient = None, 
-                       destination: PickUpPoint | None = None,
+                       destination: str | None = None,
                        user_cart: Cart | None = None, 
                        our_store: Store | None = None,
                        order_total: int | None = None,
@@ -66,11 +66,22 @@ class Order:
             for key in self.user_cart.cart_dictionary.keys():
                 some_product = self.store.find_by_name(key)
                 self.store.change_product(some_product, -self.user_cart.cart_dictionary[key])
-                self.destination = pick_up_point
-            self.destination.add_package(self)
+                self.destination = pick_up_point.address
+            #self.destination.add_package(self)
         else:
             print('Your shopping cart has been updated')
             return False
         return True
+    
+    def show_order(self):
+        print('Order id:', self.order_id)
+        print('Order recipient:', self.recipient)
+        print('Order destination:', self.destination)
+        print('Order products:')
+        print('-------------------------------------------------------------------')
+        self.user_cart.show_cart()
+        print('-------------------------------------------------------------------')
+        print('Order total:', self.order_total)
+        print('Order payment type:', self.payment_type)
     
     

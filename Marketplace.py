@@ -5,8 +5,7 @@ from Store import Store
 from Cart import Cart
 from Order import Order
 from PickUpPoint import PickUpPoint
-
-# Product_Shop, Store, Cart, Order
+from copy import deepcopy
 
 class MarketplaceFacade:
     def __init__(self):
@@ -17,11 +16,13 @@ class MarketplaceFacade:
         self.cart = Cart()
         self.order = Order()
         self.add_prod_from_shop_to_store()    
+        self.list_of_pickup_points = \
+            self.create_list_of_pickup_points(['Zavolga', 'Bragino', 'Center'])
         
     def create_list_of_pickup_points(self, list_of_pickup_points):
         list_of_points = []
         for points in list_of_pickup_points:
-            list_of_pickup_points.append(PickUpPoint(points))
+            list_of_points.append(PickUpPoint(points))
         return list_of_points
     
     def add_product_to_catalog(self):
@@ -106,6 +107,7 @@ class MarketplaceFacade:
 
     def place_order(self):
         self.order.create_order(self.cart, self.store)
+        
         pickup_point = PickUpPoint(self.order.destination)
         
         if self.order.complete_order(pickup_point):
@@ -114,12 +116,37 @@ class MarketplaceFacade:
             self.order.order_total = order_total
             print('Order total:', order_total)
             self.order.payment_type = self.select_payment_type()
-            pickup_point.add_package(self.order)
+            match self.order.destination:
+                case 'Zavolga':
+                    self.list_of_pickup_points[0].add_package(deepcopy(self.order))
+                case 'Bragino':
+                    self.list_of_pickup_points[1].add_package(deepcopy(self.order))
+                case 'Center':
+                    self.list_of_pickup_points[2].add_package(deepcopy(self.order))
+                    
             self.show_order()
             self.order.user_cart.clear_cart()
 
 
         #self.order.user_cart = Cart()
+        
+    def show_orders_at_the_pickup_point(self):
+        for points in self.list_of_pickup_points:
+            print(points.address, sep=' ')
+        our_pickup_point = input('Select the pickup point from the line above: ')
+        
+        match our_pickup_point:
+            case 'Zavolga':
+                for order in self.list_of_pickup_points[0].packages:
+                    order.show_order()
+            case 'Bragino':
+                for order in self.list_of_pickup_points[1].packages:
+                    order.show_order()
+            case 'Center':
+                for order in self.list_of_pickup_points[2].packages:
+                    order.show_order()
+            case _:
+                self.show_orders_at_the_pickup_point()
 
     def order_total(self):
         order_total = 0
@@ -142,15 +169,7 @@ class MarketplaceFacade:
         return payment_type
     
     def show_order(self):
-        print('Order id:', self.order.order_id)
-        print('Order recipient:', self.order.recipient)
-        print('Order destination:', self.order.destination.address)
-        print('Order products:')
-        print('-------------------------------------------------------------------')
-        self.order.user_cart.show_cart()
-        print('-------------------------------------------------------------------')
-        print('Order total:', self.order.order_total)
-        print('Order payment type:', self.order.payment_type)
+        self.order.show_order()
 
     def cancel_order(self):
         self.order = Order()
