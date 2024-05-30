@@ -9,13 +9,21 @@ from PickUpPoint import PickUpPoint
 # Product_Shop, Store, Cart, Order
 
 class MarketplaceFacade:
-    def __init__(self, Product_Shop: Product_Shop, Store: Store, Cart: Cart, Order: Order):
-        self.product_shop = Product_Shop
-        self.store = Store
-        self.cart = Cart
-        self.order = Order
+    def __init__(self):
+        self.product_shop = Product_Shop()
+        self.product_shop.add_category_from_file('category_data.txt')
+        self.product_shop.add_products_from_file('data_of_products.txt')
+        self.store = Store(list()) 
+        self.cart = Cart()
+        self.order = Order()
+        self.add_prod_from_shop_to_store()    
         
-
+    def create_list_of_pickup_points(self, list_of_pickup_points):
+        list_of_points = []
+        for points in list_of_pickup_points:
+            list_of_pickup_points.append(PickUpPoint(points))
+        return list_of_points
+    
     def add_product_to_catalog(self):
         print('Select a category to add a product:')
         name_category = input()
