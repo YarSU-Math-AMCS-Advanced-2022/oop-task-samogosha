@@ -83,9 +83,12 @@ class MarketplaceFacade:
     def place_order(self):
         self.order.create_order(self.cart, self.store)
         pickup_point = PickUpPoint(self.order.destination)
-        self.order.complete_order(pickup_point)
-        print('Your order has been placed')
-        self.order.user_cart.clear_cart()
+        
+        complete = self.order.complete_order(pickup_point)
+        
+        if complete:
+            print('Your order has been placed')
+            self.order.user_cart.clear_cart()
         #self.order.user_cart = Cart()  
 
     def cancel_order(self):

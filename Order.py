@@ -66,4 +66,5 @@ class Order:
             self.destination.add_package(self.order_id)
         else:
             print('Your shopping cart has been updated')
-        return self
+            return False
+        return True
