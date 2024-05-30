@@ -3,20 +3,29 @@ from Store import Store
 from Cart import Cart
 
 class PickUpPoint:
-    def __init__(self, address):
+    def __init__(self, address: str):
         self.address = address
         self.packages = []  # список посылок, принятых на пункт выдачи
 
     def add_package(self, package):
         self.packages.append(package)
-        print(f"Посылка №{package} добавлена на пункт выдачи {self.address}")
+        print(f"The order №{package.order_id} has been added to the delivery point {self.address}")
 
     def remove_package(self, package):
         if package in self.packages:
             self.packages.remove(package)
-            print(f"Посылка №{package} удалена с пункта выдачи {self.address}")
+            print(f"The order №{package.order_id} has been deleted from the delivery point {self.address}")
         else:
-            print(f"Посылка №{package} не найдена на пункте выдачи {self.address}")
+            print(f"The order №{package.order_id} not found at the delivery point {self.address}")
+
+    def get_packages_id(self):
+        list_of_id = []
+        
+        for pack in self.packages:
+            list_of_id.append(pack.order_id)
+        
+        return list_of_id
+
 
     def display_packages(self):
-        print(f"Посылки на пункте выдачи {self.address}: {', '.join(self.packages)}")
+        print(f"Orders at the delivery point {self.address}: {', '.join(self.get_packages_id())}")

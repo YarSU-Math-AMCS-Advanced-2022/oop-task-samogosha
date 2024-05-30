@@ -1,7 +1,3 @@
-import enum 
-
-
-# Класс "Товар"
 class Product:
     def __init__(self, product_name = None, 
                  product_price = None, 
@@ -13,7 +9,6 @@ class Product:
         self.description = product_description
     
     def create_product(self):
-        #!!!!ДОПИСАТЬ
         name_product = input('Enter the product name: ')
         self.product_name = name_product
         price_product = int(input('Enter the product price: '))

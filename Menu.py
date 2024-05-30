@@ -29,10 +29,11 @@ class Menu():
         print('0) Change user')
         print('1) Show catalog')
         print('2) Add product to cart')
-        print('3) Show cart')
-        print('4) Place an order')
-        print('5) Show menu again')
-        print('6) Exit programm')
+        print('3) Edit cart')
+        print('4) Show cart')
+        print('5) Place an order')
+        print('6) Show menu again')
+        print('7) Exit programm')
 
     
     def show_admin_menu(self):
@@ -84,12 +85,14 @@ class Menu():
             case 2:
                 self.Marketplace.add_to_cart()
             case 3:
-                self.Marketplace.show_cart()
+                self.Marketplace.edit_cart()
             case 4:
-                self.Marketplace.place_order()
+                self.Marketplace.show_cart()
             case 5:
-                self.show_customer_menu()
+                self.Marketplace.place_order()
             case 6:
+                self.show_customer_menu()
+            case 7:
                 sys.exit()
             case _:
                 print('Unknown command')

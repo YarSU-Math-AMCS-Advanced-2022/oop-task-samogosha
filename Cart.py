@@ -20,7 +20,7 @@ class Cart:
 
 
     def rem_from_cart(self, name_product: str, count = None):
-        if count == None:
+        if count == None or count >= self.cart_dictionary[name_product]:
             self.cart_dictionary.pop(name_product)
         else:
             self.cart_dictionary[name_product] -= count

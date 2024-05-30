@@ -72,6 +72,22 @@ class MarketplaceFacade:
         count = int(input(f'How many {product_name} would you like to add? '))
         self.cart.add_to_cart(product_name, count)
         print("Products successfully added to cart.")
+
+    def edit_cart(self):
+        print('What product you want to edit in cart?')
+        product_name = input()
+        if product_name not in self.cart.cart_dictionary:
+            print('This item is not in your cart!')
+        else:
+            print('Do you want to remove this product from your cart or change its quantity? Print \'d\' or \'c\':')
+            action = input()
+            if action == 'c':
+                quantity_of_product = int(input('Enter the number of products to be removed: '))
+                self.cart.rem_from_cart(product_name, quantity_of_product)
+            elif action == 'd':
+                self.cart.rem_from_cart(product_name)
+            else:
+                print('Unknown command!')
         
     def show_cart(self):
         if len(self.cart.cart_dictionary) == 0:
@@ -84,12 +100,49 @@ class MarketplaceFacade:
         self.order.create_order(self.cart, self.store)
         pickup_point = PickUpPoint(self.order.destination)
         
-        complete = self.order.complete_order(pickup_point)
-        
-        if complete:
+        if self.order.complete_order(pickup_point):
             print('Your order has been placed')
+            order_total = self.order_total()
+            self.order.order_total = order_total
+            print('Order total:', order_total)
+            self.order.payment_type = self.select_payment_type()
+            pickup_point.add_package(self.order)
+            self.show_order()
             self.order.user_cart.clear_cart()
-        #self.order.user_cart = Cart()  
+
+
+        #self.order.user_cart = Cart()
+
+    def order_total(self):
+        order_total = 0
+
+        for key in self.cart.cart_dictionary.keys():
+            our_item = self.product_shop.find_in_catalog(key)
+            order_total += our_item.product.price * self.cart.cart_dictionary[key]
+        
+        return order_total
+    
+    def select_payment_type(self):
+        print('Choose a convenient way to pay for your order: cash on delivery (type \'c\')| bank card (type \'bc\')')
+        payment_type = input()
+
+        if payment_type != 'c' or payment_type != 'bc':
+            while payment_type != 'c' and payment_type != 'bc':
+                print('Incorrect payment method! Chose the right one')
+                payment_type = input()
+        
+        return payment_type
+    
+    def show_order(self):
+        print('Order id:', self.order.order_id)
+        print('Order recipient:', self.order.recipient)
+        print('Order destination:', self.order.destination.address)
+        print('Order products:')
+        print('-------------------------------------------------------------------')
+        self.order.user_cart.show_cart()
+        print('-------------------------------------------------------------------')
+        print('Order total:', self.order.order_total)
+        print('Order payment type:', self.order.payment_type)
 
     def cancel_order(self):
         self.order = Order()

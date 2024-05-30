@@ -12,12 +12,16 @@ class Order:
                        recipient = None, 
                        destination: PickUpPoint | None = None,
                        user_cart: Cart | None = None, 
-                       our_store: Store | None = None):
+                       our_store: Store | None = None,
+                       order_total: int | None = None,
+                       payment_type: str | None = None):
         self.order_id = order_id
         self.recipient = recipient
         self.destination = destination
         self.user_cart = user_cart
         self.store = our_store
+        self.order_total = order_total
+        self.payment_type = payment_type
 
     def fix_cart(self):
         flag = True
@@ -63,8 +67,10 @@ class Order:
                 some_product = self.store.find_by_name(key)
                 self.store.change_product(some_product, -self.user_cart.cart_dictionary[key])
                 self.destination = pick_up_point
-            self.destination.add_package(self.order_id)
+            self.destination.add_package(self)
         else:
             print('Your shopping cart has been updated')
             return False
         return True
+    
+    
