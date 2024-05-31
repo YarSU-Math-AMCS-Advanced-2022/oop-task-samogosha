@@ -87,10 +87,13 @@ class Order:
     
     def add_order_to_output_file(self):
         file = open('data_orders.txt', 'a')
-        order_data = str(self.order_id) + ' '+str(self.recipient)+' ' \
-            + str(self.destination) + ' ' + \
-            self.user_cart.return_products_from_cart() + ' ' + \
-                str(self.order_total) + ' ' + str(self.payment_type)
+        order_data = str(self.order_id) + ' ' + \
+            str(self.recipient) + ' ' + \
+            str(self.destination) + ' ' + \
+            str(self.order_total) + ' ' + \
+            str(self.payment_type) + ' ' + \
+            self.user_cart.return_products_from_cart()
+        
         file.write(order_data)
         file.close()
         

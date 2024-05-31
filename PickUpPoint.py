@@ -22,7 +22,7 @@ class PickUpPoint:
         list_of_id = []
         
         for pack in self.packages:
-            list_of_id.append(pack.order_id)
+            list_of_id.append(str(pack.order_id))
         
         return list_of_id
 

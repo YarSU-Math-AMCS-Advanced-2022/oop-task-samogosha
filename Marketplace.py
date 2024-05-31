@@ -12,13 +12,14 @@ class MarketplaceFacade:
         self.product_shop = Product_Shop()
         self.product_shop.add_category_from_file('category_data.txt')
         self.product_shop.add_products_from_file('data_of_products.txt')
-        self.store = Store(list()) 
+        self.store = Store(list())
         self.cart = Cart()
         self.order = Order()
-        self.add_prod_from_shop_to_store()    
+        self.add_prod_from_shop_to_store()
         self.list_of_pickup_points: list[PickUpPoint] = \
             self.create_list_of_pickup_points(['Zavolga', 'Bragino', 'Center'])
-        
+        self.add_orders_from_file()
+
     def create_list_of_pickup_points(self, list_of_pickup_points):
         list_of_points = []
         for points in list_of_pickup_points:
@@ -194,3 +195,26 @@ class MarketplaceFacade:
             return
         for key in self.product_shop.hash_table:
             self.store.add_product(self.product_shop.hash_table[key])
+
+    def add_orders_from_file(self):
+        file = open('data_orders.txt', 'r')
+        file_list = file.readlines()
+
+        for line in file_list:
+            order_data = line.split()
+            our_pick_up_point = next((pick_up_point for pick_up_point 
+                                    in self.list_of_pickup_points 
+                                    if pick_up_point.address == order_data[3]), None)
+            
+            if our_pick_up_point != None:
+                cur_order = Order(int(order_data[0]), ' '.join(order_data[1:3]), order_data[3], Cart(), self.store, int(order_data[4]), order_data[5])
+
+                if len(order_data) > 7:
+                    new_cart = Cart()
+                    for i in range(7, len(order_data), 2):
+                        new_cart.add_to_cart(order_data[i - 1], int(order_data[i]))
+                
+                cur_order.user_cart = new_cart
+                our_pick_up_point.add_package(cur_order)
+
+        our_pick_up_point.display_packages()
