@@ -1,4 +1,4 @@
-from Marketplace import MarketplaceFacade
+from Marketplace.Marketplace import MarketplaceFacade
 import sys
 import os
 

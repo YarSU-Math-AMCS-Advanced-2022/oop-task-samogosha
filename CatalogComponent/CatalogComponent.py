@@ -1,6 +1,6 @@
-from Product import Product
+from Product.Product import Product
 
-class Catalog_Component:
+class CatalogComponent:
     def __init__(self, name, product: Product | None = None):
         self.name = name
         self.product = product
@@ -9,7 +9,7 @@ class Catalog_Component:
         pass
 
 
-class Composite(Catalog_Component):
+class Composite(CatalogComponent):
     product = None
 
     def __init__(self, name, product: Product | None = None):

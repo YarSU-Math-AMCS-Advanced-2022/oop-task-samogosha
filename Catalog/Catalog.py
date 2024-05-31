@@ -1,7 +1,7 @@
 from Product import Product
-from Catalog_Component import Composite
+from CatalogComponent.CatalogComponent import Composite
 
-class Product_Catalog(Composite):
+class ProductCatalog(Composite):
     def get_children_list(self):
         return self.children
        

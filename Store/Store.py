@@ -1,6 +1,6 @@
 from copy import deepcopy
-from Observer import Observable
-from Product import Product
+from Observer.Observer import Observable
+from Product.Product import Product
 
 class Store(Observable):
 

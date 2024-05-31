@@ -1,11 +1,4 @@
-from Product import Product
-from Catalog import Product_Catalog 
-from Shop import Product_Shop
-from Store import Store
-from Cart import Cart
-from Order import Order
-from Marketplace import MarketplaceFacade
-from PickUpPoint import PickUpPoint
+from Marketplace.Marketplace import MarketplaceFacade
 from Menu import Menu
 
 def main(): 

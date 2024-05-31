@@ -1,16 +1,16 @@
-from Catalog import Product_Catalog
-from Observer import Observer
-from Product import Product
-from PickUpPoint import PickUpPoint
+from Catalog.Catalog import ProductCatalog
+from Observer.Observer import Observer
+from Product.Product import Product
+from PickUpPoint.PickUpPoint import PickUpPoint
 
-class Product_Shop(Observer):
+class ProductShop(Observer):
     __instance = None
     
 
     def __init__(self):
-        if not Product_Shop.__instance:
-            Product_Shop.__instance = self
-            self.catalog = Product_Catalog('root')
+        if not ProductShop.__instance:
+            ProductShop.__instance = self
+            self.catalog = ProductCatalog('root')
             self.hash_table = dict()
             self.pick_up_points = []
 
@@ -20,9 +20,9 @@ class Product_Shop(Observer):
 
 
     @classmethod
-    def getInstance(cls, catalog: Product_Catalog):
+    def getInstance(cls, catalog: ProductCatalog):
         if not cls.__instance:
-            cls.__instance = Product_Shop(catalog)
+            cls.__instance = ProductShop(catalog)
         return cls.__instance
     
     def find_product(self, product):
@@ -35,7 +35,7 @@ class Product_Shop(Observer):
         delete = self.catalog.find_by_name(product.product_name)
         self.catalog.find_father(delete).remove(delete)
         
-    def remove_category_from_catalog(self, category: Product_Catalog):
+    def remove_category_from_catalog(self, category: ProductCatalog):
         delete = self.catalog.find_by_name(category.name)
         self.catalog.find_father(delete).remove(delete)
 
@@ -54,11 +54,11 @@ class Product_Shop(Observer):
         self.hash_table[self.get_hash(product) % 10000] = product
 
     def add_category_to_catalog(self, category_name: str, new_category_name: str):
-        new_category = Product_Catalog(new_category_name)
+        new_category = ProductCatalog(new_category_name)
         self.find_in_catalog(category_name).add(new_category)
 
     def add_product_to_catalog(self, category_name: str, product: Product):
-        new_product = Product_Catalog(product.product_name, product)
+        new_product = ProductCatalog(product.product_name, product)
         self.find_in_catalog(category_name).add(new_product)
         self.add_to_hash(product) 
 

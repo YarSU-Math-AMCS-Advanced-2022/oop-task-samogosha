@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from Product import Product
+from Product.Product import Product
 from copy import deepcopy
 
 class Cart:

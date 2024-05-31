@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
-from Product import Product
+from Product.Product import Product
 from copy import deepcopy
-from Store import Store
-from Cart import Cart
-from PickUpPoint import PickUpPoint
+from Store.Store import Store
+from Cart.Cart import Cart
+from PickUpPoint.PickUpPoint import PickUpPoint
 import random
 
 class Order:

@@ -1,6 +1,6 @@
-from Product import Product
-from Store import Store
-from Cart import Cart
+from Product.Product import Product
+from Store.Store import Store
+from Cart.Cart import Cart
 
 class PickUpPoint:
     def __init__(self, address: str):

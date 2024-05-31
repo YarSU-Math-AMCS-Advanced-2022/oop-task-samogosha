@@ -1,23 +1,29 @@
-from Product import Product
-from Catalog import Product_Catalog
-from Shop import Product_Shop
-from Store import Store
-from Cart import Cart
-from Order import Order
-from PickUpPoint import PickUpPoint
+from Product.Product import Product
+from Catalog.Catalog import ProductCatalog
+from Shop.Shop import ProductShop
+from Store.Store import Store
+from Cart.Cart import Cart
+from Order.Order import Order
+from PickUpPoint.PickUpPoint import PickUpPoint
 from copy import deepcopy
 
 class MarketplaceFacade:
     def __init__(self):
-        self.product_shop = Product_Shop()
-        self.product_shop.add_category_from_file('category_data.txt')
-        self.product_shop.add_products_from_file('data_of_products.txt')
+        self.product_shop = ProductShop()
+        self.product_shop.add_category_from_file('CatalogComponent\category_data.txt')
+        self.product_shop.add_products_from_file('Product\data_of_products.txt')
         self.store = Store(list())
         self.cart = Cart()
         self.order = Order()
         self.add_prod_from_shop_to_store()
+
+        FilePickUpPoint = open('PickUpPoint/ListPickUpPoint.txt', 'r')
+        ListPoint = FilePickUpPoint.readlines()
+        for i in range(len(ListPoint)):
+            ListPoint[i] = ListPoint[i][:-1]
+
         self.list_of_pickup_points: list[PickUpPoint] = \
-            self.create_list_of_pickup_points(['Zavolga', 'Bragino', 'Center'])
+            self.create_list_of_pickup_points(ListPoint)
         self.add_orders_from_file()
 
     def create_list_of_pickup_points(self, list_of_pickup_points):
@@ -153,12 +159,18 @@ class MarketplaceFacade:
     def create_pickup_point(self):
         address = input('Enter the address of the pick-up point: ')
         
+        FileListPoint_DimaSkazalNazivayKakHochesh = open('PickUpPoint/ListPickUpPoint.txt', 'a')
+
         for pickup in self.list_of_pickup_points:
             if pickup.address == address:
+                FileListPoint_DimaSkazalNazivayKakHochesh.close()
                 return pickup
         
+        address += '\n'
         new_pickup: PickUpPoint = PickUpPoint(address)
         self.list_of_pickup_points.append(new_pickup)
+        FileListPoint_DimaSkazalNazivayKakHochesh.write(address)
+        FileListPoint_DimaSkazalNazivayKakHochesh.close()
         return new_pickup
         
         
@@ -197,8 +209,11 @@ class MarketplaceFacade:
             self.store.add_product(self.product_shop.hash_table[key])
 
     def add_orders_from_file(self):
-        file = open('data_orders.txt', 'r')
+        file = open('Marketplace/data_orders.txt', 'r')
         file_list = file.readlines()
+
+        print(*file_list)
+        print(self.list_of_pickup_points[0].address)
 
         for line in file_list:
             order_data = line.split()
