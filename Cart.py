@@ -28,3 +28,9 @@ class Cart:
     def show_cart(self):
         for keys in self.cart_dictionary:
             print(keys, self.cart_dictionary[keys])
+            
+    def return_products_from_cart(self):
+        our_products = ''
+        for keys in self.cart_dictionary:
+            our_products += str(keys) + ' '+ str(self.cart_dictionary[keys])
+        return our_products

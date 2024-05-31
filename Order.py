@@ -65,7 +65,8 @@ class Order:
         if self.fix_cart():
             for key in self.user_cart.cart_dictionary.keys():
                 some_product = self.store.find_by_name(key)
-                self.store.change_product(some_product, -self.user_cart.cart_dictionary[key])
+                self.store.change_product(some_product, 
+                                          -self.user_cart.cart_dictionary[key])
                 self.destination = pick_up_point.address
             #self.destination.add_package(self)
         else:
@@ -84,4 +85,12 @@ class Order:
         print('Order total:', self.order_total)
         print('Order payment type:', self.payment_type)
     
-    
+    def add_order_to_output_file(self):
+        file = open('data_orders.txt', 'a')
+        order_data = str(self.order_id) + ' '+str(self.recipient)+' ' \
+            + str(self.destination) + ' ' + \
+            self.user_cart.return_products_from_cart() + ' ' + \
+                str(self.order_total) + ' ' + str(self.payment_type)
+        file.write(order_data)
+        file.close()
+        

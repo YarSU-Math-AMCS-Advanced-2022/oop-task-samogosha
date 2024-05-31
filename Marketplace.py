@@ -125,6 +125,7 @@ class MarketplaceFacade:
                     self.list_of_pickup_points[2].add_package(deepcopy(self.order))
                     
             self.show_order()
+            self.order.add_order_to_output_file()
             self.order.user_cart.clear_cart()
 
 
