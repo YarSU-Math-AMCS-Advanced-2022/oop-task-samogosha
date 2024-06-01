@@ -3,12 +3,8 @@ from Product.Product import Product
 from copy import deepcopy
 
 class Cart:
-    __instance = None
-    cart_dictionary = dict()
-
     def __init__(self):
-        if not Cart.__instance:
-            self.__instance = self
+        self.cart_dictionary = dict()
             
     def clear_cart(self):
         self.cart_dictionary = dict()

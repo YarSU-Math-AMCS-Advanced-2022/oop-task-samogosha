@@ -211,9 +211,7 @@ class MarketplaceFacade:
     def add_orders_from_file(self):
         file = open('Marketplace/data_orders.txt', 'r')
         file_list = file.readlines()
-
-        print(*file_list)
-        print(self.list_of_pickup_points[0].address)
+        our_pick_up_point = PickUpPoint('')
 
         for line in file_list:
             order_data = line.split()
@@ -223,13 +221,14 @@ class MarketplaceFacade:
             
             if our_pick_up_point != None:
                 cur_order = Order(int(order_data[0]), ' '.join(order_data[1:3]), order_data[3], Cart(), self.store, int(order_data[4]), order_data[5])
-
+                
                 if len(order_data) > 7:
                     new_cart = Cart()
+
                     for i in range(7, len(order_data), 2):
                         new_cart.add_to_cart(order_data[i - 1], int(order_data[i]))
-                
+
                 cur_order.user_cart = new_cart
                 our_pick_up_point.add_package(cur_order)
-
-        our_pick_up_point.display_packages()
+        
+        

@@ -86,7 +86,7 @@ class Order:
         print('Order payment type:', self.payment_type)
     
     def add_order_to_output_file(self):
-        file = open('data_orders.txt', 'a')
+        file = open('Marketplace\data_orders.txt', 'a')
         order_data = str(self.order_id) + ' ' + \
             str(self.recipient) + ' ' + \
             str(self.destination) + ' ' + \
