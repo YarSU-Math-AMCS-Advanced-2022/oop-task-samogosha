@@ -27,6 +27,7 @@ class Menu():
 
 
     def show_customer_menu(self):
+        print('-----------------------------')
         print('0) Change user')
         print('1) Show catalog')
         print('2) Add product to cart')
@@ -36,9 +37,11 @@ class Menu():
         print('6) Show orders at the pickup point')
         print('7) Show menu again')
         print('8) Exit programm')
+        print('-----------------------------')
 
     
     def show_admin_menu(self):
+        print('-----------------------------')
         print('0) Change user')
         print('1) Show catalog')
         print('2) Add product to catalog')
@@ -49,6 +52,7 @@ class Menu():
         print('7) Create pickup point')
         print('8) Show menu again')
         print('9) Exit programm')
+        print('-----------------------------')
 
 
     def change_user(self):

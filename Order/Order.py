@@ -39,7 +39,7 @@ class Order:
         self.recipient = input('Enter your surname and first name: ')
         list_places = ['Zavolga', 'Bragino', 'Center']
         print(*list_places)
-        temp_dest = input('Select a pickup point from the line above: ')
+        temp_dest = input('Select a pickup point from the line above:\n')
         flag = False
         
         while flag == False:      
@@ -54,7 +54,7 @@ class Order:
                 flag = True
             else:
                 print('Incorrect adress of pickup point, please try again')
-                temp_dest = input('Select a pickup point from the line above: ')
+                temp_dest = input('Select a pickup point from the line above:\n')
 
 
         self.user_cart = cart

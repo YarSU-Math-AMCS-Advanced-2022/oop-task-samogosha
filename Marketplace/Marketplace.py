@@ -33,6 +33,7 @@ class MarketplaceFacade:
         return list_of_points
     
     def add_product_to_catalog(self):
+        print('-----------------------------')
         print('Select a category to add a product:')
         name_category = input()
         
@@ -43,32 +44,38 @@ class MarketplaceFacade:
         new_product = Product()
         new_product.create_product()
         self.product_shop.add_product_to_catalog(name_category, new_product)
-        print("Product successfully added to the marketplace.")
+        print('*Product successfully added to the marketplace*')
+        print('-----------------------------')
         
     def add_category_to_catalog(self):
-        print('Select a category to add a new category: ')
+        print('-----------------------------')
+        print('Select a category to add a new category:')
         name_category = input()
         exist = self.product_shop.find_in_catalog(name_category)
         if exist == None:
             print('Incorrect category, please try again')
             return
-        print('Enter new category name: ')
+        print('Enter new category name:')
         new_name_category = input()
         self.product_shop.add_category_to_catalog(name_category, new_name_category)
-        print('Category successfully added to the marketplace.')
+        print('*Category successfully added to the marketplace*')
+        print('-----------------------------')
 
     def remove_product_from_catalog(self):
-        print('Select the product you want to delete: ')
+        print('-----------------------------')
+        print('Select the product you want to delete:')
         our_product_name = input()
         our_item = self.product_shop.find_in_catalog(our_product_name)
         if our_item == None:
             print('Incorrect product, please try again')
             return
         self.product_shop.remove_product_from_catalog(our_item.product)
-        print("Product successfully removed from the marketplace.")
+        print('*Product successfully removed from the marketplace*')
+        print('-----------------------------')
         
     def remove_category_from_catalog(self):
-        print('Select the category you want to delete: ')
+        print('-----------------------------')
+        print('Select the category you want to delete:')
         our_category_name = input()
         exist = self.product_shop.find_in_catalog(our_category_name)
         if exist == None:
@@ -76,20 +83,24 @@ class MarketplaceFacade:
             return
         our_item = self.product_shop.find_in_catalog(our_category_name)
         self.product_shop.remove_category_from_catalog(our_item)
-        print("Category successfully removed from the marketplace.")
+        print('*Category successfully removed from the marketplace*')
+        print('-----------------------------')
         
     def add_to_cart(self):
-        print('What product would you like to add to your cart? ')
+        print('-----------------------------')
+        print('What product would you like to add to your cart?')
         product_name = input()
         our_item = self.product_shop.find_in_catalog(product_name)
         if our_item == None:
             print('Incorrect product, please try again')
             return
-        count = int(input(f'How many {product_name} would you like to add? '))
+        count = int(input(f'How many {product_name} would you like to add?\n'))
         self.cart.add_to_cart(product_name, count)
-        print("Products successfully added to cart.")
+        print('*Products successfully added to cart*')
+        print('-----------------------------')
 
     def edit_cart(self):
+        print('-----------------------------')
         print('What product you want to edit in cart?')
         product_name = input()
         if product_name not in self.cart.cart_dictionary:
@@ -98,50 +109,55 @@ class MarketplaceFacade:
             print('Do you want to remove this product from your cart or change its quantity? Print \'d\' or \'c\':')
             action = input()
             if action == 'c':
-                quantity_of_product = int(input('Enter the number of products to be removed: '))
+                quantity_of_product = int(input('Enter the number of products to be removed:\n'))
                 self.cart.rem_from_cart(product_name, quantity_of_product)
             elif action == 'd':
                 self.cart.rem_from_cart(product_name)
             else:
                 print('Unknown command!')
+        print('-----------------------------')
         
     def show_cart(self):
+        print('-----------------------------')
         if len(self.cart.cart_dictionary) == 0:
             print('Your shopping cart is empty')
         else:
             print('Your shopping cart looks like this:')
             self.cart.show_cart()
+        print('-----------------------------')
 
     def place_order(self):
+        print('-----------------------------')
         self.order.create_order(self.cart, self.store)
         
         pickup_point = PickUpPoint(self.order.destination)
         
         if self.order.complete_order(pickup_point):
-            print('Your order has been placed')
+            print('\nYour order has been placed')
             order_total = self.order_total()
             self.order.order_total = order_total
             print('Order total:', order_total)
             self.order.payment_type = self.select_payment_type()
             match self.order.destination:
                 case 'Zavolga':
-                    self.list_of_pickup_points[0].add_package(deepcopy(self.order))
+                    self.list_of_pickup_points[0].add_package(deepcopy(self.order), True)
                 case 'Bragino':
-                    self.list_of_pickup_points[1].add_package(deepcopy(self.order))
+                    self.list_of_pickup_points[1].add_package(deepcopy(self.order), True)
                 case 'Center':
-                    self.list_of_pickup_points[2].add_package(deepcopy(self.order))
+                    self.list_of_pickup_points[2].add_package(deepcopy(self.order), True)
                     
             self.show_order()
             self.order.add_order_to_output_file()
             self.order.user_cart.clear_cart()
 
-
+        print('-----------------------------')
         #self.order.user_cart = Cart()
         
     def show_orders_at_the_pickup_point(self):
+        print('-----------------------------')
         for points in self.list_of_pickup_points:
             print(points.address, sep=' ')
-        our_pickup_point = input('Select the pickup point from the line above: ')
+        our_pickup_point = input('\nSelect the pickup point from the line above:\n')
         
         match our_pickup_point:
             case 'Zavolga':
@@ -155,9 +171,11 @@ class MarketplaceFacade:
                     order.show_order()
             case _:
                 self.show_orders_at_the_pickup_point()
+        print('-----------------------------')
 
     def create_pickup_point(self):
-        address = input('Enter the address of the pick-up point: ')
+        print('-----------------------------')
+        address = input('Enter the address of the pick-up point:\n')
         
         FileListPoint_DimaSkazalNazivayKakHochesh = open('PickUpPoint/ListPickUpPoint.txt', 'a')
 
@@ -171,6 +189,7 @@ class MarketplaceFacade:
         self.list_of_pickup_points.append(new_pickup)
         FileListPoint_DimaSkazalNazivayKakHochesh.write(address)
         FileListPoint_DimaSkazalNazivayKakHochesh.close()
+        print('-----------------------------')
         return new_pickup
         
         
@@ -185,6 +204,7 @@ class MarketplaceFacade:
         return order_total
     
     def select_payment_type(self):
+        print('-----------------------------')
         print('Choose a convenient way to pay for your order: cash on delivery (type \'c\')| bank card (type \'bc\')')
         payment_type = input()
 
@@ -193,6 +213,7 @@ class MarketplaceFacade:
                 print('Incorrect payment method! Chose the right one')
                 payment_type = input()
         
+        print('-----------------------------')
         return payment_type
     
     def show_order(self):
@@ -200,7 +221,7 @@ class MarketplaceFacade:
 
     def cancel_order(self):
         self.order = Order()
-        print('Order successfully canceled')
+        print('*Order successfully canceled*')
 
     def add_prod_from_shop_to_store(self):
         if len(self.product_shop.hash_table) == 0:
@@ -229,6 +250,6 @@ class MarketplaceFacade:
                         new_cart.add_to_cart(order_data[i - 1], int(order_data[i]))
 
                 cur_order.user_cart = new_cart
-                our_pick_up_point.add_package(cur_order)
-        
-        
+                our_pick_up_point.add_package(cur_order, False)
+
+       

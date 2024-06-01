@@ -7,9 +7,10 @@ class PickUpPoint:
         self.address = address
         self.packages = []  # список посылок, принятых на пункт выдачи
 
-    def add_package(self, package):
+    def add_package(self, package, flag_for_print: bool):
         self.packages.append(package)
-        print(f"The order №{package.order_id} has been added to the delivery point {self.address}")
+        if flag_for_print:
+            print(f"The order №{package.order_id} has been added to the delivery point {self.address}")
 
     def remove_package(self, package):
         if package in self.packages:
