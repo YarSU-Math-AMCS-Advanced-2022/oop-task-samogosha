@@ -15,7 +15,9 @@ class MarketplaceFacade:
         self.store = Store(list())
         self.cart = Cart()
         self.order = Order()
+
         self.add_prod_from_shop_to_store()
+        self.store.register(self.product_shop)
 
         FilePickUpPoint = open('PickUpPoint/ListPickUpPoint.txt', 'r')
         ListPoint = FilePickUpPoint.readlines()
