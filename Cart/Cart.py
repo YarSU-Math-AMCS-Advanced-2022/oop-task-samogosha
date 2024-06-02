@@ -6,8 +6,10 @@ class Cart:
     def __init__(self):
         self.cart_dictionary = dict()
             
+
     def clear_cart(self):
         self.cart_dictionary = dict()
+
 
     def add_to_cart(self, name_product: str, count: int):
         if name_product not in self.cart_dictionary.keys():
@@ -20,10 +22,12 @@ class Cart:
             self.cart_dictionary.pop(name_product)
         else:
             self.cart_dictionary[name_product] -= count
-            
+
+
     def show_cart(self):
         for keys in self.cart_dictionary:
             print(keys, self.cart_dictionary[keys])
+          
             
     def return_products_from_cart(self):
         our_products = ''

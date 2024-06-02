@@ -4,7 +4,6 @@ import os
 
 
 class Menu():
-
     def __init__(self, Marketplace: MarketplaceFacade | None = None, user: str | None = None):
         self.Marketplace = Marketplace
         self.user = user
@@ -49,15 +48,17 @@ class Menu():
         print('4) Add category to catalog')
         print('5) Remove category from catalog')
         print('6) Show orders at the pickup point')
-        print('7) Create pickup point')
-        print('8) Show menu again')
-        print('9) Exit programm')
+        print('7) Find order at the pickup point')
+        print('8) Create pickup point')
+        print('9) Show menu again')
+        print('10) Exit programm')
         print('-----------------------------')
 
 
     def change_user(self):
         self.user = None
         self.work_start()
+
 
     def action_select_admin(self):
         action_num = int(input('Select an action from the menu: '))
@@ -78,15 +79,18 @@ class Menu():
             case 6:
                 self.Marketplace.show_orders_at_the_pickup_point()
             case 7:
+                self.Marketplace.find_order_in_pickup_point()
+            case 8:
                 self.Marketplace.create_pickup_point()
-            case 8:
+            case 9:
                 self.show_admin_menu()
-            case 8:
+            case 10:
                 sys.exit()
             case _:
                 os.system('cls')
                 print('Unknown command')
                 self.show_admin_menu()
+        
                 
     def action_select_customer(self):
         action_num = int(input('Select an action from the menu: '))

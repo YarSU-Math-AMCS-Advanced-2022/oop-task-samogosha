@@ -8,6 +8,7 @@ class Product:
         self.stock_quantity = product_stock_quantity
         self.description = product_description
     
+
     def create_product(self):
         name_product = input('Enter the product name: ')
         self.product_name = name_product
@@ -25,11 +26,13 @@ class Product:
               + f"Product_stock_quantity = {self.stock_quantity}" + "\n"
               + f"Product_description = {self.description}")
         
+
     def copy(self, product):
         self.product_name = product.product_name
         self.price = product.price
         self.stock_quantity = product.stock_quantity
         self.description = product.description
+    
     
     def is_similar(self, product):
         if (self.product_name == product.product_name and

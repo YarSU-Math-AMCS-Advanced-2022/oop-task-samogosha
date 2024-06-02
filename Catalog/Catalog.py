@@ -5,6 +5,7 @@ class ProductCatalog(Composite):
     def get_children_list(self):
         return self.children
        
+
     def sort_by_price(self):
         for child in self.children:
             if child.product != None:
@@ -13,6 +14,7 @@ class ProductCatalog(Composite):
             else:
                 child.sort_by_price()
     
+
     def find_product(self, product):
         if self.product != None:
             return
@@ -24,6 +26,7 @@ class ProductCatalog(Composite):
             else:
                 return prod.find_product(product)
     
+
     def find_father(self, child):
 
         if(self.product == None):
@@ -35,6 +38,7 @@ class ProductCatalog(Composite):
                 if buff != None and child in buff.children:
                     return buff
         return
+
 
     def find_by_name(self, name: str):
         if self.name == name:

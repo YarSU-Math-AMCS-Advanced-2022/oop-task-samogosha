@@ -3,7 +3,6 @@ from Observer.Observer import Observable
 from Product.Product import Product
 
 class Store(Observable):
-
     def __init__(self, products_list: list[Product]):
         self.observers = []
         self.products_list = products_list 
@@ -13,15 +12,19 @@ class Store(Observable):
         for observer in self.observers:
             observer.update(old_product, product)
 
+
     def update_product_quantity(self, old_product, product):
         self.notify_observers(old_product, product)
+
 
     def add_product(self, product):
         if product not in self.products_list:
             self.products_list.append(product)
     
+
     def delete_product(self, product):
         self.products_list.remove(product)
+
 
     def change_product(self, product, value):
         old_product = deepcopy(product)
@@ -32,6 +35,7 @@ class Store(Observable):
             if self.products_list[ind].stock_quantity <= 0:
                 self.products_list[ind].stock_quantity = 0
                 self.update_product_quantity(old_product, product)
+
 
     def find_by_name(self, product_name: str):
         for product in self.products_list:

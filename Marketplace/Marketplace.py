@@ -26,12 +26,14 @@ class MarketplaceFacade:
             self.create_list_of_pickup_points(ListPoint)
         self.add_orders_from_file()
 
+
     def create_list_of_pickup_points(self, list_of_pickup_points):
         list_of_points = []
         for points in list_of_pickup_points:
             list_of_points.append(PickUpPoint(points))
         return list_of_points
     
+
     def add_product_to_catalog(self):
         print('-----------------------------')
         print('Select a category to add a product:')
@@ -47,6 +49,7 @@ class MarketplaceFacade:
         print('*Product successfully added to the marketplace*')
         print('-----------------------------')
         
+
     def add_category_to_catalog(self):
         print('-----------------------------')
         print('Select a category to add a new category:')
@@ -61,6 +64,7 @@ class MarketplaceFacade:
         print('*Category successfully added to the marketplace*')
         print('-----------------------------')
 
+
     def remove_product_from_catalog(self):
         print('-----------------------------')
         print('Select the product you want to delete:')
@@ -73,6 +77,7 @@ class MarketplaceFacade:
         print('*Product successfully removed from the marketplace*')
         print('-----------------------------')
         
+
     def remove_category_from_catalog(self):
         print('-----------------------------')
         print('Select the category you want to delete:')
@@ -85,7 +90,8 @@ class MarketplaceFacade:
         self.product_shop.remove_category_from_catalog(our_item)
         print('*Category successfully removed from the marketplace*')
         print('-----------------------------')
-        
+
+
     def add_to_cart(self):
         print('-----------------------------')
         print('What product would you like to add to your cart?')
@@ -98,6 +104,7 @@ class MarketplaceFacade:
         self.cart.add_to_cart(product_name, count)
         print('*Products successfully added to cart*')
         print('-----------------------------')
+
 
     def edit_cart(self):
         print('-----------------------------')
@@ -117,6 +124,7 @@ class MarketplaceFacade:
                 print('Unknown command!')
         print('-----------------------------')
         
+
     def show_cart(self):
         print('-----------------------------')
         if len(self.cart.cart_dictionary) == 0:
@@ -125,6 +133,7 @@ class MarketplaceFacade:
             print('Your shopping cart looks like this:')
             self.cart.show_cart()
         print('-----------------------------')
+
 
     def place_order(self):
         print('-----------------------------')
@@ -138,62 +147,46 @@ class MarketplaceFacade:
             self.order.order_total = order_total
             print('Order total:', order_total)
             self.order.payment_type = self.select_payment_type()
-            match self.order.destination:
-                case 'Zavolga':
-                    self.list_of_pickup_points[0].add_package(deepcopy(self.order), True)
-                case 'Bragino':
-                    self.list_of_pickup_points[1].add_package(deepcopy(self.order), True)
-                case 'Center':
-                    self.list_of_pickup_points[2].add_package(deepcopy(self.order), True)
-                    
+            our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == self.order.destination ), None)
+            our_pick_up_point.add_package(deepcopy(self.order), True)
             self.show_order()
             self.order.add_order_to_output_file()
             self.order.user_cart.clear_cart()
 
         print('-----------------------------')
-        #self.order.user_cart = Cart()
+ 
         
     def show_orders_at_the_pickup_point(self):
         print('-----------------------------')
         for points in self.list_of_pickup_points:
             print(points.address, sep=' ')
-        our_pickup_point = input('\nSelect the pickup point from the line above:\n')
-        
-        match our_pickup_point:
-            case 'Zavolga':
-                for order in self.list_of_pickup_points[0].packages:
-                    order.show_order()
-            case 'Bragino':
-                for order in self.list_of_pickup_points[1].packages:
-                    order.show_order()
-            case 'Center':
-                for order in self.list_of_pickup_points[2].packages:
-                    order.show_order()
-            case _:
-                self.show_orders_at_the_pickup_point()
+        pickup_point_name = input('\nSelect the pickup point from the line above:\n')
+        our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == pickup_point_name), None)
+        for package in our_pick_up_point.packages:
+            package.show_order()
         print('-----------------------------')
+
 
     def create_pickup_point(self):
         print('-----------------------------')
         address = input('Enter the address of the pick-up point:\n')
         
-        FileListPoint_DimaSkazalNazivayKakHochesh = open('PickUpPoint/ListPickUpPoint.txt', 'a')
+        file_list_of_point = open('PickUpPoint/ListPickUpPoint.txt', 'a')
 
         for pickup in self.list_of_pickup_points:
             if pickup.address == address:
-                FileListPoint_DimaSkazalNazivayKakHochesh.close()
+                file_list_of_point.close()
                 return pickup
         
         address += '\n'
         new_pickup: PickUpPoint = PickUpPoint(address)
         self.list_of_pickup_points.append(new_pickup)
-        FileListPoint_DimaSkazalNazivayKakHochesh.write(address)
-        FileListPoint_DimaSkazalNazivayKakHochesh.close()
+        file_list_of_point.write(address)
+        file_list_of_point.close()
         print('-----------------------------')
         return new_pickup
         
         
-
     def order_total(self):
         order_total = 0
 
@@ -203,6 +196,7 @@ class MarketplaceFacade:
         
         return order_total
     
+
     def select_payment_type(self):
         print('-----------------------------')
         print('Choose a convenient way to pay for your order: cash on delivery (type \'c\')| bank card (type \'bc\')')
@@ -216,18 +210,22 @@ class MarketplaceFacade:
         print('-----------------------------')
         return payment_type
     
+
     def show_order(self):
         self.order.show_order()
+
 
     def cancel_order(self):
         self.order = Order()
         print('*Order successfully canceled*')
+
 
     def add_prod_from_shop_to_store(self):
         if len(self.product_shop.hash_table) == 0:
             return
         for key in self.product_shop.hash_table:
             self.store.add_product(self.product_shop.hash_table[key])
+
 
     def add_orders_from_file(self):
         file = open('Marketplace/data_orders.txt', 'r')
@@ -251,5 +249,20 @@ class MarketplaceFacade:
 
                 cur_order.user_cart = new_cart
                 our_pick_up_point.add_package(cur_order, False)
+
+
+    def find_order_in_pickup_point(self):
+        pickup_point = input('Enter point where you want to search: ')
+        id_package = int(input('Enter id of order: '))
+        self.find_order_by_id(pickup_point, id_package).show_order()
+    
+
+    def find_order_by_id(self, pickup_point, id_package: int):
+        our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == pickup_point), None)
+        package = our_pick_up_point.search_order_by_id(id_package)
+        return package
+
+
+
 
        

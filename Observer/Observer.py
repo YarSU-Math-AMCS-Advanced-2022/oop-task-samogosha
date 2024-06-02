@@ -6,15 +6,15 @@ class Observer(metaclass=ABCMeta):
     def update(self, *args) -> None:
         pass
 
-#склад
-class Observable(metaclass=ABCMeta):
 
+class Observable(metaclass=ABCMeta):
     def __init__(self) -> None:
-        self.observers = []     # инициализация списка наблюдателей
+        self.observers = []
+
 
     def register(self, observer: Observer) -> None:
-        #Регистрация нового наблюдателя на подписку
         self.observers.append(observer)
+
 
     def notify_observers(self, message: str) -> None:
         pass

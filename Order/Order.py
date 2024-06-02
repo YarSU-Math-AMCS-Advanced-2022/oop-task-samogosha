@@ -7,7 +7,6 @@ from PickUpPoint.PickUpPoint import PickUpPoint
 import random
 
 class Order:
-
     def __init__(self, order_id = None, 
                        recipient = None, 
                        destination: str | None = None,
@@ -23,6 +22,7 @@ class Order:
         self.order_total = order_total
         self.payment_type = payment_type
 
+
     def fix_cart(self):
         flag = True
 
@@ -34,6 +34,7 @@ class Order:
 
         return flag
     
+
     def create_order(self, cart: Cart, store: Store):
         self.order_id = random.randint(10000000,100000000-1)
         self.recipient = input('Enter your surname and first name: ')
@@ -68,12 +69,12 @@ class Order:
                 self.store.change_product(some_product, 
                                           -self.user_cart.cart_dictionary[key])
                 self.destination = pick_up_point.address
-            #self.destination.add_package(self)
         else:
             print('Your shopping cart has been updated')
             return False
         return True
     
+
     def show_order(self):
         print('Order id:', self.order_id)
         print('Order recipient:', self.recipient)
@@ -84,6 +85,7 @@ class Order:
         print('-------------------------------------------------------------------')
         print('Order total:', self.order_total)
         print('Order payment type:', self.payment_type)
+    
     
     def add_order_to_output_file(self):
         file = open('Marketplace\data_orders.txt', 'a')
