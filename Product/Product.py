@@ -13,7 +13,7 @@ class Product:
         name_product = input('Enter the product name: ')
         self.product_name = name_product
         price_product = int(input('Enter the product price: '))
-        self.product_price = price_product
+        self.price = price_product
         stock_quantity_product = int(input('Enter the product stock quantity: '))
         self.stock_quantity = stock_quantity_product
         description_product = input('Enter the description of product: ')

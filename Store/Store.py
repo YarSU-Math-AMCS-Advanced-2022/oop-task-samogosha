@@ -30,11 +30,11 @@ class Store(Observable):
         old_product = deepcopy(product)
         ind = self.products_list.index(product)   
         self.products_list[ind].stock_quantity += value
-
+        self.update_product_quantity(old_product, self.products_list[ind])
         if product in self.products_list:
             if self.products_list[ind].stock_quantity <= 0:
                 self.products_list[ind].stock_quantity = 0
-                self.update_product_quantity(old_product, product)
+                #self.update_product_quantity(old_product, product)
 
 
     def find_by_name(self, product_name: str):

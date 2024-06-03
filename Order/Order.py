@@ -38,24 +38,26 @@ class Order:
     def create_order(self, cart: Cart, store: Store):
         self.order_id = random.randint(10000000,100000000-1)
         self.recipient = input('Enter your surname and first name: ')
-        list_places = ['Zavolga', 'Bragino', 'Center']
-        print(*list_places)
-        temp_dest = input('Select a pickup point from the line above:\n')
-        flag = False
         
-        while flag == False:      
-            if temp_dest == 'Zavolga':
-                self.destination = 'Zavolga'
-                flag = True
-            elif temp_dest == 'Bragino':
-                self.destination = 'Bragino'
-                flag = True
-            elif temp_dest == 'Center':
-                self.destination = 'Center'
-                flag = True
-            else:
-                print('Incorrect adress of pickup point, please try again')
-                temp_dest = input('Select a pickup point from the line above:\n')
+        # list_places = ['Zavolga', 'Bragino', 'Center']
+        # print(*list_places)
+        # temp_dest = input('Select a pickup point from the line above:\n')
+        
+        # flag = False
+        
+        # while flag == False:      
+        #     if temp_dest == 'Zavolga':
+        #         self.destination = 'Zavolga'
+        #         flag = True
+        #     elif temp_dest == 'Bragino':
+        #         self.destination = 'Bragino'
+        #         flag = True
+        #     elif temp_dest == 'Center':
+        #         self.destination = 'Center'
+        #         flag = True
+        #     else:
+        #         print('Incorrect adress of pickup point, please try again')
+        #         temp_dest = input('Select a pickup point from the line above:\n')
 
 
         self.user_cart = cart
@@ -97,5 +99,6 @@ class Order:
             self.user_cart.return_products_from_cart()
         
         file.write(order_data)
+        file.write('\n')
         file.close()
         

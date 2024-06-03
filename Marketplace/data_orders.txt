@@ -1,1 +1,7 @@
-41399448 f f Zavolga 198 bc Diffur_na_8_let 2
+75450801 f f Zavolga 3 bc Stolik_y_tolika 3
+34658089 F F Zavolga 3 bc Stolik_y_tolika 3
+70401437 f f Zavolga 4 bc Stolik_y_tolika 4
+69679870 f f Zavolga 12299958 bc Diffur_na_8_let 124242
+71029132 f f REZINA 200000 bc Chain_Gold 2
+27419157 Dmitry Dobro REZINA 15900 bc Stanislav_Iland 250 Cap_Olegatar 109 Diffur_na_8_let 100
+61636920 Dmitry Dobro REZINA 1510 bc Jersey_Igonin_best 1 Diffur_na_8_let 15 Tshirt_Black 24 

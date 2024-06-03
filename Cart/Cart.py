@@ -32,5 +32,6 @@ class Cart:
     def return_products_from_cart(self):
         our_products = ''
         for keys in self.cart_dictionary:
-            our_products += str(keys) + ' '+ str(self.cart_dictionary[keys])
+            our_products += str(keys) + ' ' + str(self.cart_dictionary[keys])
+            our_products += ' '
         return our_products

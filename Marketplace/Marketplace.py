@@ -139,9 +139,23 @@ class MarketplaceFacade:
 
     def place_order(self):
         print('-----------------------------')
+        for pickup_point in self.list_of_pickup_points:
+            print(pickup_point.address, end=' ')
+        flag = False
+        while flag == False:
+            temp_dest = input('\nSelect a pickup point from the line above:\n')
+            our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == temp_dest ), None)
+            if our_pick_up_point == None:
+                print('Incorrect adress of pickup point, please try again')
+                temp_dest = input('Select a pickup point from the line above:\n')
+            else:
+                flag = True
+                
+                
         self.order.create_order(self.cart, self.store)
         
-        pickup_point = PickUpPoint(self.order.destination)
+        # pickup_point = PickUpPoint(self.order.destination)
+        pickup_point = our_pick_up_point
         
         if self.order.complete_order(pickup_point):
             print('\nYour order has been placed')
@@ -149,8 +163,9 @@ class MarketplaceFacade:
             self.order.order_total = order_total
             print('Order total:', order_total)
             self.order.payment_type = self.select_payment_type()
-            our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == self.order.destination ), None)
-            our_pick_up_point.add_package(deepcopy(self.order), True)
+            # our_pick_up_point = next((pick_up_point for pick_up_point in self.list_of_pickup_points if pick_up_point.address == self.order.destination ), None)
+            # our_pick_up_point.add_package(deepcopy(self.order), True)
+            pickup_point.add_package(deepcopy(self.order), True)
             self.show_order()
             self.order.add_order_to_output_file()
             self.order.user_cart.clear_cart()
@@ -184,6 +199,7 @@ class MarketplaceFacade:
         new_pickup: PickUpPoint = PickUpPoint(address)
         self.list_of_pickup_points.append(new_pickup)
         file_list_of_point.write(address)
+        file_list_of_point.write('\n')
         file_list_of_point.close()
         print('-----------------------------')
         return new_pickup
@@ -226,7 +242,7 @@ class MarketplaceFacade:
         if len(self.product_shop.hash_table) == 0:
             return
         for key in self.product_shop.hash_table:
-            self.store.add_product(self.product_shop.hash_table[key])
+            self.store.add_product(deepcopy(self.product_shop.hash_table[key]))
 
 
     def add_orders_from_file(self):

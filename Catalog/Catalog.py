@@ -22,9 +22,12 @@ class ProductCatalog(Composite):
             if prod.product != None:
                 if product.is_similar(prod.product):
                     return prod.product
-                return
+                # return
             else:
-                return prod.find_product(product)
+                buf = prod.find_product(product)
+                if buf != None:
+                    return buf
+                # return prod.find_product(product)
     
 
     def find_father(self, child):
